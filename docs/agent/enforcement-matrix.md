@@ -199,6 +199,7 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 
 | 항목 | SSOT |
 |------|------|
+| 바이브코딩 보안 baseline 5항 (보안 게이트 미명시 권장) | [`docs/security/vibe-coding-baseline.md`](../security/vibe-coding-baseline.md) · [`plan-feature`](../../shared/skills/plan-feature/SKILL.md) 6e · [`verify-change`](../../shared/skills/verify-change/SKILL.md) 4e · [`release-check`](../../shared/skills/release-check/SKILL.md) |
 | 이중 디자인안 A/B 병렬 동시 작성 (순차는 예외 사유) | `65` |
 | 배포 전 `release-check` | [`release-check`](../../shared/skills/release-check/SKILL.md) |
 | 고객 E2E 리뷰어 GATE (단계 4D, 팀 정책) | [`docs/qa/reviewer-gate-rubric.md`](../qa/reviewer-gate-rubric.md) |

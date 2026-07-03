@@ -2,7 +2,7 @@
 type: doc
 project: cursor-workspace-kit
 doc_lane: security
-updated_at: 2026-06-05T00:00:00
+updated_at: 2026-07-03T00:00:00
 tags: [docs, security, vault-sync]
 ---
 
@@ -12,7 +12,7 @@ tags: [docs, security, vault-sync]
 
 ## 결정 트리
 
-1. **PRD에 보안 게이트=아니오(또는 미명시)?** → 이 폴더 **스킵** (기본 harness·`release-check` 민감정보 항목만)
+1. **PRD에 보안 게이트=아니오(또는 미명시)?** → [`vibe-coding-baseline.md`](vibe-coding-baseline.md) **권장** (6축·`security:ci`·본 폴더 엄격 절차는 스킵. 기본 harness·`release-check` 민감정보 항목은 유지)
 2. **신규 제품·보안 정책·스캔이 없음?** → [`greenfield-checklist.md`](greenfield-checklist.md)
 3. **이미 일부 스캔·CI가 있음?** → [`brownfield-checklist.md`](brownfield-checklist.md)
 4. **엄격(strict) 티어?** → [`strict-axis-checklist.md`](strict-axis-checklist.md) + 단계 4B 보안 축 **필수**
@@ -42,6 +42,9 @@ tags: [docs, security, vault-sync]
 | [`brownfield-checklist.md`](brownfield-checklist.md) | 기존: 인벤토리 → 갭 보완 |
 | [`strict-axis-checklist.md`](strict-axis-checklist.md) | 엄격 4B 보안 축·OWASP 수동 점검 |
 | [`release-checklist.md`](release-checklist.md) | 릴리스 3항 — `release-check` 스킬 참조 |
+| [`vibe-coding-baseline.md`](vibe-coding-baseline.md) | 라이트 5항·배포 전 3항 (보안 게이트 미명시 **권장**) |
+| [`baas-checklist.md`](baas-checklist.md) | Supabase 등 BaaS RLS·Storage·anon 스모크 |
+| [`llm-and-agents.md`](llm-and-agents.md) | LLM 프록시·rate limit·에이전트·운영 DB 분리 |
 
 ## Harness 연동 (권장)
 

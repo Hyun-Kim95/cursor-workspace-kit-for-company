@@ -18,6 +18,8 @@ PRD 또는 동등 범위 문서에 아래 섹션을 복사해 사용한다. 상�
 | AC-02 | Given 인증 헤더 없음 When `GET /api/items` Then `401` + 오류 본문 형식 계약 준수 | API | 오류 | auto | |
 | AC-03 | Given 목록 API 빈 배열 When 목록 화면 로드 Then 빈 상태 UI 문구 표시 | 화면 | 빈 | auto | |
 | AC-04 | Given 권한 없는 역할 When 관리 메뉴 접근 Then 권한 제한 UI | 화면 | 권한 | manual | 스테이징 수동 1회 |
+| AC-05 | Given 사용자 A 로그인 When 사용자 B의 `resource_id`로 `GET /api/...` Then `403` 또는 `404` | API | 권한 | auto | IDOR |
+| AC-06 | Given 비로그인 When 민감 데이터 API 직접 호출 Then `401` 또는 거부(BaaS면 RLS 거부) | API | 권한 | auto | baseline·BaaS |
 
 ### 작성 규칙
 
@@ -32,6 +34,8 @@ PRD 또는 동등 범위 문서에 아래 섹션을 복사해 사용한다. 상�
 |-------|-------------------------|----------|
 | AC-01 | `e2e/login.spec.ts` — `AC-01 logged-in user sees dashboard` | 실패 확인 |
 | AC-02 | `tests/api/items.test.ts` — `AC-02` | 실패 확인 |
+| AC-05 | `tests/api/resource.test.ts` — `AC-05 IDOR denied` | 실패 확인 |
+| AC-06 | `tests/api/sensitive.test.ts` — `AC-06 unauthenticated denied` | 실패 확인 |
 
 ## Vault
 

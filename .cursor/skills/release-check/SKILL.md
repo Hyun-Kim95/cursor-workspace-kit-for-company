@@ -40,6 +40,7 @@ description: 배포 직전 최종 점검 절차를 수행해 누락과 릴리즈
 - PRD **측정=예**이면 analytics 키/host(또는 ingest URL) 누락·staging/prod 혼선을 점검한다.
 - 배포 환경에서 사용하는 외부 연동 키/엔드포인트/리전 값이 맞는지 확인한다.
 - 민감 정보가 코드/로그/문서에 노출되지 않는지 확인한다.
+- (권장) [`docs/security/vibe-coding-baseline.md`](../../docs/security/vibe-coding-baseline.md) **배포 전 3항**: 비로그인 API 스모크, 프론트·공개 repo에 LLM·service 키 없음, (BaaS) 신규 테이블 RLS.
 
 ### 3) 모바일/웹 분기, 반응형, 다크모드 영향 확인
 
@@ -102,6 +103,7 @@ description: 배포 직전 최종 점검 절차를 수행해 누락과 릴리즈
 - [ ] (측정=예) product-analytics 릴리스 3항 확인 완료
 - [ ] (성능 게이트=예) performance 릴리스 3항 확인 완료
 - [ ] (보안 게이트=예) security 릴리스 3항 확인 완료
+- [ ] (권장) vibe-coding baseline 배포 전 3항 확인 완료
 - [ ] 콘솔/네트워크/예외 처리 누락 없음
 - [ ] 문서/변경 요약 준비 완료
 - [ ] 필요 시 qa-agent/docs-agent 협업 완료

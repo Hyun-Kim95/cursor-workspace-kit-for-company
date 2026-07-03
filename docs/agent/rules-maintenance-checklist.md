@@ -95,6 +95,8 @@
 - [ ] `plan-feature`·`start-feature`·`release-check`·`verify-change`·`client-project-lifecycle` 링크가 docs 진입점과 일치하는지
 - [ ] `security-last` 계약이 `docs/qa/security-last.example.json`·`Invoke-SecurityGate.ps1`과 일치하는지
 - [ ] optional 배치: PRD 보안 게이트=아니오·미명시 제품에서 강제 적용 문구가 없는지 ([`rules-deploy.md`](rules-deploy.md))
+- [ ] baseline 3종(`vibe-coding-baseline`·`baas-checklist`·`llm-and-agents`) 추가·수정 시 README 결정 트리·스킬 6e/4e·strict B축 교차 참조 정합
+- [ ] baseline 문서에 Gate 1 **필수**·**BLOCKER** 문구를 넣지 않았는지 (권장만)
 
 ## User Rules UI와 중복
 - [ ] 채널 B 사용 시 User Rules에 동일 블록이 남아 있지 않은지 ([`rules-deploy.md`](rules-deploy.md))

@@ -74,6 +74,9 @@ Kit SSOT는 Git에서 관리한다. **편집은 SSOT 경로만** 하고, 루트 
 | 경로 | 한 줄 목적 |
 |------|------------|
 | [`docs/security/`](../../docs/security/README.md) | 보안 게이트 6축·security-policy·security-last·엄격 체크리스트 |
+| [`docs/security/vibe-coding-baseline.md`](../../docs/security/vibe-coding-baseline.md) | 라이트 5항·배포 전 3항 (보안 게이트 미명시 권장) |
+| [`docs/security/baas-checklist.md`](../../docs/security/baas-checklist.md) | BaaS RLS·Storage·anon 스모크 |
+| [`docs/security/llm-and-agents.md`](../../docs/security/llm-and-agents.md) | LLM 프록시·rate limit·에이전트·운영 DB 분리 |
 | [`scripts/security/`](../../scripts/security/README.md) | Invoke-SecurityGate.ps1 스텁 (실스캔 없음) |
 
 ## docs/qa

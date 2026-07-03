@@ -36,6 +36,8 @@ PRD **보안 게이트=예** + **티어 strict**일 때 `client-project-lifecycl
 | B4 | 세션·토큰 | 만료·로그아웃·탈취 시 무효화 경로 |
 | B5 | 비밀번호·자격증명 | 평문 저장·로그 출력 없음 |
 
+**BaaS(PostgREST·Supabase 등) 사용 시:** [`baas-checklist.md`](baas-checklist.md)를 추가 수행한다.
+
 ---
 
 ## C. 입력·주입·XSS (OWASP)
@@ -78,7 +80,7 @@ PRD **보안 게이트=예** + **티어 strict**일 때 `client-project-lifecycl
 |----|------|------|
 | F1 | 시크릿 로테이션 | 유출 시 교체 절차 문서화 |
 | F2 | 감사 로그 | 권한 변경·관리자 동작 기록 (해당 시) |
-| F3 | rate limit | 로그인·공개 API 남용 완화 (해당 시) |
+| F3 | rate limit | 로그인·공개 API 남용 완화 (해당 시). LLM 프록시 사용 시 [`llm-and-agents.md`](llm-and-agents.md) LLM-2 |
 
 ---
 

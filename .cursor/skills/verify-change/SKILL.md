@@ -24,6 +24,7 @@ description: 구현 결과를 요구사항, 상태 처리, 회귀 위험 기준�
 4b. PRD **측정=예**이면 North Star 퍼널 대비 핵심 이벤트 발화·properties(PII 없음) spot check를 한다.
 4c. PRD **성능 게이트=예**이면 `.cursor/state/perf-last.json`(또는 팀 경로)과 활성 플랫폼(web/app/api) budget 대비 spot check를 한다.
 4d. PRD **보안 게이트=예**이면 `.cursor/state/security-last.json`(또는 팀 경로)과 활성 축·`blockers`·엄격 시 `manualReview` spot check를 한다. `docs/security/release-checklist.md` 1항을 참고한다.
+4e. 보안 게이트 여부와 무관, [`docs/security/vibe-coding-baseline.md`](../../docs/security/vibe-coding-baseline.md) 5항 spot check를 **권장**한다. BaaS 사용 시 [`baas-checklist.md`](../../docs/security/baas-checklist.md), LLM 프록시·에이전트 사용 시 [`llm-and-agents.md`](../../docs/security/llm-and-agents.md)를 점검한다.
 5. 모바일/웹 분기와 반응형을 점검한다.
 6. 다크모드 영향을 점검한다.
 7. 기존 기능에 영향이 없는지 회귀 위험을 확인한다.
