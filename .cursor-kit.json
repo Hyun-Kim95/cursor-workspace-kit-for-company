@@ -11,7 +11,7 @@
       "logPath": ".cursor/state/shell-guard.log"
     },
     "qualityGate": {
-      "mode": "off",
+      "mode": "warn",
       "configFile": ".cursor/quality-gate.json",
       "runOn": ["afterAgentResponse"],
       "stateFile": ".cursor/state/quality-gate-last.json"

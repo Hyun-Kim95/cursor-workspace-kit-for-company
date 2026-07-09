@@ -50,7 +50,7 @@
 - kit 레포: [`scripts/sync-hooks.ps1`](../../scripts/sync-hooks.ps1) — `sync-kit.ps1` 마지막에 호출. 기존 Obsidian·`kit-start` 훅은 유지한다.
 - 제품 채널 **B**: [`scripts/sync-kit-product.ps1`](../../scripts/sync-kit-product.ps1) — 위 3파일만 화이트리스트 복사 (`kit-start-on-prompt.ps1` 덮어쓰기 금지).
 - 제품 채널 **A**·**B**: `/start` 시 harness 훅 3파일 + `kit-start-on-prompt.ps1` 복사. `hooks.json` 슬롯은 `/start-setting`.
-- `/start-setting`: [`Invoke-KitStartSetting.ps1`](../../scripts/Invoke-KitStartSetting.ps1)의 `Ensure-HarnessHookScripts` / `Ensure-HarnessHooksJson`이 훅 파일·`hooks.json` 슬롯을 idempotent merge한다.
+- `/start-setting`: [`Invoke-KitStartSetting.ps1`](../../scripts/Invoke-KitStartSetting.ps1)이 [`Sync-KitProductHooks.ps1`](../../scripts/Sync-KitProductHooks.ps1)을 호출해 훅 파일 복사·`hooks.json` 슬롯 merge를 수행한다. merge는 **(이벤트, 스크립트 파일명)** 기준으로 idempotent하며, 같은 스크립트의 중복 항목은 제거된다(`sync-kit-product.ps1` 경유 재실행 시에도 동일).
 
 ## Shell guard (`beforeShellExecution`)
 
@@ -80,6 +80,7 @@ Cursor에서 에이전트가 `git add -A`를 실행하려 할 때, `shellGuard.m
 
 - 이벤트: `afterAgentResponse` — `rule-candidate-capture` **뒤**, `quality-gate` (timeout 25s)
 - 설정: [`project-kit/.cursor/quality-gate.json.example`](../../project-kit/.cursor/quality-gate.json.example) → 제품 `.cursor/quality-gate.json` (gitignore)
+- **kit 레포 self (dogfooding):** `qualityGate.mode: warn` + [`.cursor/quality-gate.json.example`](../../.cursor/quality-gate.json.example)의 하네스 테스트 5종(`Test-KitHooksJson`·`Test-KitHarnessConfig`·`Test-GuardShellHarness`·`Test-QualityGateHarness`·`Test-DevServerHarness`, 실측 약 8s < 25s). 실제 `.cursor/quality-gate.json`은 gitignore이며 [`sync-hooks.ps1`](../../scripts/sync-hooks.ps1)이 없을 때만 example에서 시드한다(로컬 수정 보존). `onlyWhen` 없음 — 매 응답 후 실행.
 - `harness.qualityGate.mode: off` 또는 설정 파일 없음 → 조용히 skip
 - `onlyWhen` (예: `deliveryLoopEnabled` + `lifecyclePhases`)이 있으면 [`.cursor/state/delivery-ralph.json`](../qa/delivery-loop-state.example.json) 조건을 만족할 때만 실행 — 기본 소음 방지
 - 각 `commands[]`는 `cmd /c`로 `maxSeconds` 내 실행; 결과는 `quality-gate-last.json`
@@ -145,9 +146,11 @@ Cursor에서 에이전트가 `git add -A`를 실행하려 할 때, `shellGuard.m
 ## 수동 검증
 
 ```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-KitHooksJson.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-KitHarnessConfig.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-GuardShellHarness.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-QualityGateHarness.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-DevServerHarness.ps1
 ```
 
 `sync-kit.ps1` 후 `.cursor/hooks/`에 harness 3파일이 있어야 한다.

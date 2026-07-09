@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "enabled": true,
+  "commands": [
+    {
+      "id": "hooks-json",
+      "shell": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-KitHooksJson.ps1",
+      "maxSeconds": 12,
+      "required": true
+    },
+    {
+      "id": "harness-config",
+      "shell": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-KitHarnessConfig.ps1",
+      "maxSeconds": 12,
+      "required": true
+    },
+    {
+      "id": "guard-shell",
+      "shell": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-GuardShellHarness.ps1",
+      "maxSeconds": 12,
+      "required": true
+    },
+    {
+      "id": "quality-gate-harness",
+      "shell": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-QualityGateHarness.ps1",
+      "maxSeconds": 12,
+      "required": true
+    },
+    {
+      "id": "dev-server-harness",
+      "shell": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-DevServerHarness.ps1",
+      "maxSeconds": 12,
+      "required": true
+    }
+  ],
+  "onFailure": "warn"
+}

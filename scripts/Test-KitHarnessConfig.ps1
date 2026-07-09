@@ -1,4 +1,4 @@
-# Manual verification for Get-KitHarnessConfig (Harness stage 1)
+﻿# Manual verification for Get-KitHarnessConfig (Harness stage 1)
 # Exit 0 = all cases passed, 1 = failure
 
 $ErrorActionPreference = "Stop"
@@ -30,7 +30,7 @@ function Assert-Case {
 $cfgA = Get-KitHarnessConfig -WorkspaceRoot $KitRoot
 Assert-Case -Name "A: ParseOk" -Condition ($cfgA.ParseOk -eq $true) -Detail $cfgA.ParseMessage
 Assert-Case -Name "A: ShellGuard.Mode warn" -Condition ($cfgA.ShellGuard.Mode -eq "warn")
-Assert-Case -Name "A: QualityGate.Mode off" -Condition ($cfgA.QualityGate.Mode -eq "off")
+Assert-Case -Name "A: QualityGate.Mode warn" -Condition ($cfgA.QualityGate.Mode -eq "warn")
 
 # Case B: temp dir + empty config {}
 $tempB = Join-Path ([System.IO.Path]::GetTempPath()) ("kit-harness-test-" + [Guid]::NewGuid().ToString("N"))

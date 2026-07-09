@@ -35,3 +35,12 @@ foreach ($name in $whitelist) {
 }
 
 Write-Host "sync-hooks: copied $n harness file(s) to .cursor/hooks"
+
+# Kit-self dogfooding: seed .cursor/quality-gate.json from the committed example
+# once (the real file is gitignored). Never overwrite local edits.
+$qgExample = Join-Path $KitRoot ".cursor\quality-gate.json.example"
+$qgReal = Join-Path $KitRoot ".cursor\quality-gate.json"
+if ((Test-Path -LiteralPath $qgExample) -and -not (Test-Path -LiteralPath $qgReal)) {
+    Copy-Item -LiteralPath $qgExample -Destination $qgReal -Force
+    Write-Host "sync-hooks: seeded .cursor/quality-gate.json from example (kit self quality gate)"
+}

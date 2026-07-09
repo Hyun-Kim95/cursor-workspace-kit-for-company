@@ -27,7 +27,20 @@ function Ensure-Dir {
     }
 }
 
+function Write-Utf8NoBomFile {
+    param(
+        [string]$Path,
+        [string]$Content
+    )
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($Path, $Content, $utf8NoBom)
+}
+
 function Merge-HookEntryIntoJson {
+    # Idempotency key: (event name, hook script file name) inside the parsed JSON.
+    # ScriptMarker may carry an "#eventName" suffix for reporting only; it never
+    # appears in hooks.json, so raw-text marker matching would re-add entries on
+    # every sync. Existing duplicates of the same script in the event are pruned.
     param(
         [string]$HooksPath,
         [string]$EventName,
@@ -37,25 +50,44 @@ function Merge-HookEntryIntoJson {
 
     if (-not (Test-Path -LiteralPath $HooksPath)) { return "no hooks.json" }
 
-    $raw = Get-Content -LiteralPath $HooksPath -Raw -Encoding UTF8
-    if ($raw -match [regex]::Escape($ScriptMarker)) { return "exists ($ScriptMarker)" }
+    $scriptName = $ScriptMarker.Split("#")[0]
 
+    $raw = Get-Content -LiteralPath $HooksPath -Raw -Encoding UTF8
     $doc = $raw | ConvertFrom-Json
     if (-not $doc.hooks) {
         $doc | Add-Member -NotePropertyName hooks -NotePropertyValue (New-Object PSObject) -Force
     }
 
-    $list = New-Object System.Collections.ArrayList
-    [void]$list.Add($NewEntry)
     $existingProp = $doc.hooks.PSObject.Properties | Where-Object { $_.Name -eq $EventName } | Select-Object -First 1
-    if ($existingProp -and $existingProp.Value) {
-        foreach ($item in @($existingProp.Value)) {
-            [void]$list.Add($item)
+    $existing = @()
+    if ($existingProp -and $existingProp.Value) { $existing = @($existingProp.Value) }
+
+    $kept = New-Object System.Collections.ArrayList
+    $found = $false
+    foreach ($item in $existing) {
+        $cmd = ""
+        $cmdProp = $item.PSObject.Properties | Where-Object { $_.Name -eq "command" } | Select-Object -First 1
+        if ($cmdProp) { $cmd = [string]$cmdProp.Value }
+        if ($cmd -like ("*" + $scriptName + "*")) {
+            if ($found) { continue }
+            $found = $true
         }
+        [void]$kept.Add($item)
     }
-    $doc.hooks | Add-Member -NotePropertyName $EventName -NotePropertyValue @($list.ToArray()) -Force
-    $doc | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $HooksPath -Encoding UTF8
-    return "merged ($ScriptMarker)"
+
+    if ($found -and $kept.Count -eq $existing.Count) { return "exists ($ScriptMarker)" }
+
+    # Append (not prepend) so merge call order matches hook execution order,
+    # e.g. quality-gate before dev-server-harness in afterAgentResponse.
+    $status = "deduped ($ScriptMarker)"
+    if (-not $found) {
+        [void]$kept.Add($NewEntry)
+        $status = "merged ($ScriptMarker)"
+    }
+
+    $doc.hooks | Add-Member -NotePropertyName $EventName -NotePropertyValue @($kept.ToArray()) -Force
+    Write-Utf8NoBomFile -Path $HooksPath -Content ($doc | ConvertTo-Json -Depth 6)
+    return $status
 }
 
 function Ensure-HooksJsonFile {
@@ -65,10 +97,10 @@ function Ensure-HooksJsonFile {
     if (Test-Path -LiteralPath $hooksPath) { return }
 
     Ensure-Dir -Path (Join-Path $Root ".cursor")
-    @{
+    Write-Utf8NoBomFile -Path $hooksPath -Content (@{
         version = 1
         hooks   = @{}
-    } | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath $hooksPath -Encoding UTF8
+    } | ConvertTo-Json -Depth 3)
 }
 
 function Resolve-KitHookScriptSource {
