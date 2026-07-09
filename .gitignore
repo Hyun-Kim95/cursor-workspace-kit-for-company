@@ -1,5 +1,7 @@
 # Cursor — local session state (do not commit)
-.cursor/state/
+# **/ also covers stray nested state dirs (e.g. scripts/.cursor/state/ from a
+# script run with the wrong -WorkspaceRoot)
+**/.cursor/state/
 # rule-mined-report.* lives under .cursor/state/ (covered above)
 .cursor/quality-gate.json
 .cursor/guard-shell.local.json

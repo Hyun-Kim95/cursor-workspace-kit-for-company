@@ -54,7 +54,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetti
 4. 첫 sync (`Invoke-KitStart`)
 5. (없을 때만) 루트 `.editorconfig`·`.gitattributes` · global rules(`encoding-utf8-global`, `product-monetization-default`) — [`encoding.md`](encoding.md), [`product-assumptions.md`](product-assumptions.md)
 
-결과 파일: 제품의 [`.cursor/state/kit-start-setting-last.json`](../.cursor/state/kit-start-setting-last.json)
+결과 파일: 제품의 [`.cursor/state/kit-start-setting-last.json`](../../.cursor/state/kit-start-setting-last.json)
 
 **선택:** 제품에서 `git add` / `commit` (submodule, `.cursor-kit.json`, `.cursor/` 등).
 

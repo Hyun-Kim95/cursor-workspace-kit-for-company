@@ -32,7 +32,7 @@ tags: [docs, security, greenfield, vault-sync]
 
 1. [`strict-axis-checklist.md`](strict-axis-checklist.md) 수행
 2. 자동: `npm run security:ci` → `.cursor/state/security-last.json`
-3. 산출: `docs/qa/security-axis-{날짜}.md` (BLOCKER / MAJOR / MINOR)
+3. 산출: `docs/qa/security-axis-{날짜}.md` (BLOCKER / MAJOR / MINOR; 템플릿 [`security-axis.template.md`](../qa/security-axis.template.md))
 4. BLOCKER 있으면 단계 4C 루프
 
 ### 축별 (enabled 시)

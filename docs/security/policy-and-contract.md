@@ -136,7 +136,7 @@ kit는 **도구 중립**. 제품이 다음을 구현한다.
 }
 ```
 
-스택이 다르면 동등 명령으로 교체한다. **수동 축**(authz, transport, data)은 [`strict-axis-checklist.md`](strict-axis-checklist.md) 결과를 `manualReview`·`docs/qa/security-axis-*.md`에 기록한다.
+스택이 다르면 동등 명령으로 교체한다. **수동 축**(authz, transport, data)은 [`strict-axis-checklist.md`](strict-axis-checklist.md) 결과를 `manualReview`·`docs/qa/security-axis-*.md`([템플릿](../qa/security-axis.template.md))에 기록한다.
 
 **에이전트 동작:** `security-last.json`·스캔 로그로 원인 조사 후 수정 (`working-principles` **조사·소통·실패 대응**). 추측 패치 금지.
 

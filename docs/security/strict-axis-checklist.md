@@ -10,7 +10,7 @@ tags: [docs, security, strict, vault-sync]
 
 PRD **보안 게이트=예** + **티어 strict**일 때 `client-project-lifecycle` 단계 4B **코드 품질·보안 축** SSOT. `qa-agent`·`backend-agent` 협업.
 
-산출: `docs/qa/security-axis-{날짜}.md` — 각 항목 **PASS / FAIL / N/A**, 심각도 **BLOCKER / MAJOR / MINOR**.
+산출: `docs/qa/security-axis-{날짜}.md` — 각 항목 **PASS / FAIL / N/A**, 심각도 **BLOCKER / MAJOR / MINOR**. 템플릿: [`docs/qa/security-axis.template.md`](../qa/security-axis.template.md)
 
 ---
 

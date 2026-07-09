@@ -54,6 +54,7 @@ tags: [docs, security, vault-sync]
 | [`delivery-loop-harness.md`](../agent/delivery-loop-harness.md) | `lifecyclePhase: verify` + `Invoke-DeliveryLoop.ps1`로 `security:ci` 반복 |
 | [`project-kit/.cursor/quality-gate.security.example.json`](../../project-kit/.cursor/quality-gate.security.example.json) | quality-gate 보안 명령 예시 |
 | [`docs/qa/security-last.example.json`](../qa/security-last.example.json) | 상태 파일 예시 |
+| [`docs/qa/security-axis.template.md`](../qa/security-axis.template.md) | 단계 4B 산출 `security-axis-{날짜}.md` 템플릿 |
 
 **완료 선언 권고:** 제품에 `security-last.json`이 있고 `ok: false`이면 검증·완료·출시 준비 선언을 하지 않는다 (`quality-gate-last`·`perf-last`와 동일 패턴, [`policy-and-contract.md`](policy-and-contract.md)).
 
