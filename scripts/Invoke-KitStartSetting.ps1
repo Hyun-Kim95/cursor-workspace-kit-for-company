@@ -42,7 +42,7 @@ function Write-SettingState {
         Write-KitJsonFile -Path $StatePath -Object $obj -Depth 6
     }
     else {
-        $obj | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $StatePath -Encoding UTF8
+        [System.IO.File]::WriteAllText($StatePath, ($obj | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding $false))
     }
 }
 
@@ -115,13 +115,15 @@ function Ensure-CursorKitJson {
         Copy-Item -LiteralPath $example -Destination $configPath -Force
     }
     else {
-        @{
+        $json = @{
             kitPath     = $RelativeKitPath.Replace('\', '/')
             kitRepoMode = "submodule"
             remote      = "origin"
             branch      = "main"
             channel     = $ChannelName
-        } | ConvertTo-Json | Set-Content -LiteralPath $configPath -Encoding UTF8
+        } | ConvertTo-Json
+        # UTF-8 without BOM (encoding-utf8-global); PS 5.1 Set-Content UTF8 adds a BOM.
+        [System.IO.File]::WriteAllText($configPath, $json, (New-Object System.Text.UTF8Encoding $false))
     }
     return "created"
 }

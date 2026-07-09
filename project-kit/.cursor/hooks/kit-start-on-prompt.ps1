@@ -1,4 +1,4 @@
-# Product: copy to .cursor/hooks/ — or re-run /start-setting to refresh from kit submodule.
+﻿# Product: copy to .cursor/hooks/ — or re-run /start-setting to refresh from kit submodule.
 # Full hook lives in kit at .cursor/hooks/kit-start-on-prompt.ps1 after submodule add.
 
 $ErrorActionPreference = "Stop"

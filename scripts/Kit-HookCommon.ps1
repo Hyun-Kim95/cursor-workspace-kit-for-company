@@ -1,10 +1,10 @@
-# Shared helpers for Cursor hooks on Windows PowerShell 5.1 (UTF-8 stdout, no ConvertFrom-Json -Depth)
+﻿# Shared helpers for Cursor hooks on Windows PowerShell 5.1 (UTF-8 stdout, no ConvertFrom-Json -Depth)
 
 function Get-KitUtf8NoBomEncoding {
-    if (-not $script:KitUtf8NoBom) {
-        $script:KitUtf8NoBom = New-Object System.Text.UTF8Encoding $false
-    }
-    return $script:KitUtf8NoBom
+    # No script-scope cache: hooks that dot-source this under Set-StrictMode would
+    # throw on the first (unset) cache-variable read, silently disabling callers
+    # such as Initialize-KitHookConsole. UTF8Encoding construction is cheap.
+    return New-Object System.Text.UTF8Encoding $false
 }
 
 function Read-KitUtf8File {
@@ -61,10 +61,38 @@ function Write-HookJson {
     [Console]::Out.WriteLine($json)
 }
 
+function Read-HookStdinRaw {
+    # Cursor sends the hook payload as UTF-8 and may prefix it with a BOM (EF BB BF).
+    # [Console]::In decodes with the console codepage (CP949 on Korean Windows) unless
+    # InputEncoding was set, so read the raw stream and decode as UTF-8 explicitly.
+    # detectEncodingFromByteOrderMarks:$true consumes a leading BOM.
+    $reader = New-Object System.IO.StreamReader(
+        [Console]::OpenStandardInput(),
+        (Get-KitUtf8NoBomEncoding),
+        $true
+    )
+    try {
+        $raw = $reader.ReadToEnd()
+    }
+    finally {
+        $reader.Dispose()
+    }
+    if ($null -eq $raw) { return "" }
+    # U+FEFF is not whitespace in .NET; strip it so empty-payload guards work.
+    return $raw.Trim([char]0xFEFF, [char]0x200B, ' ', "`t", "`r", "`n")
+}
+
 function Read-HookStdinJson {
-    $raw = [Console]::In.ReadToEnd()
+    $raw = Read-HookStdinRaw
     if ([string]::IsNullOrWhiteSpace($raw)) { return $null }
-    return ($raw | ConvertFrom-Json)
+    try {
+        return ($raw | ConvertFrom-Json)
+    }
+    catch {
+        # Unparseable payload (encoding drift, truncation, future Cursor format change).
+        # Hooks must not block prompt submission over this; treat as "no payload".
+        return $null
+    }
 }
 
 function Get-HookErrorText {

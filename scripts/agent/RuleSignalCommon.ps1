@@ -1,4 +1,4 @@
-# Shared helpers for transcript rule mining and rule-signal-capture hook.
+﻿# Shared helpers for transcript rule mining and rule-signal-capture hook.
 # Dot-source from Invoke-TranscriptRuleMining.ps1 and rule-signal-capture.ps1
 
 $script:RuleSignalKitRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)

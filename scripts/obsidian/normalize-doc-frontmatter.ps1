@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+﻿#!/usr/bin/env pwsh
 <#
 .SYNOPSIS
   docs/ 하위( obsidian 제외 )의 .md를 점검하고 frontmatter/Vault 링크 정합성을 맞춘다.

@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$RepoRoot,
     [string]$VaultRoot = "D:\Obsidian\projects"
 )

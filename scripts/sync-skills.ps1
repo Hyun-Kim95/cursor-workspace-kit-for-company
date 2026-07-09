@@ -1,4 +1,4 @@
-# Sync SSOT skills into .cursor/skills for Cursor workspace loading.
+﻿# Sync SSOT skills into .cursor/skills for Cursor workspace loading.
 # SSOT: shared/skills, project-kit/.cursor/skills
 # Do not edit .cursor/skills directly — edit SSOT and re-run this script.
 

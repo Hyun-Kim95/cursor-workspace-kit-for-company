@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+﻿#!/usr/bin/env pwsh
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
@@ -37,6 +37,26 @@ function Ensure-ParentDirectory {
     }
 }
 
+# encoding-utf8-global: rule files / AGENTS.md / approval log must be UTF-8 without BOM.
+# PS 5.1 Set-Content -Encoding UTF8 writes a BOM, so use .NET writers instead.
+$script:Utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+function Write-Utf8NoBomText {
+    param(
+        [string]$Path,
+        [string]$Content
+    )
+    [System.IO.File]::WriteAllText($Path, $Content, $script:Utf8NoBom)
+}
+
+function Add-Utf8NoBomLine {
+    param(
+        [string]$Path,
+        [string]$Line
+    )
+    [System.IO.File]::AppendAllText($Path, $Line + "`r`n", $script:Utf8NoBom)
+}
+
 function Read-CandidateItems {
     param([string]$Path)
     $items = New-Object System.Collections.Generic.List[object]
@@ -54,10 +74,12 @@ function Write-CandidateItems {
         [System.Collections.Generic.List[object]]$Items
     )
     Ensure-ParentDirectory -Path $Path
-    Set-Content -LiteralPath $Path -Value "" -Encoding UTF8
+    $lines = New-Object System.Collections.ArrayList
     foreach ($item in $Items) {
-        Add-Content -LiteralPath $Path -Value ($item | ConvertTo-Json -Compress) -Encoding UTF8
+        [void]$lines.Add(($item | ConvertTo-Json -Compress))
     }
+    $body = if ($lines.Count -gt 0) { ($lines -join "`r`n") + "`r`n" } else { "" }
+    Write-Utf8NoBomText -Path $Path -Content $body
 }
 
 function Get-PendingCandidatesNewestFirst {
@@ -167,7 +189,7 @@ function Ensure-RuleFile {
         "## 관계",
         "- SSOT 우선순위는 `AGENTS.md`와 User-level 계획/분담 규칙을 따른다."
     )
-    Set-Content -LiteralPath $fullPath -Value $content -Encoding UTF8
+    Write-Utf8NoBomText -Path $fullPath -Content (($content -join "`r`n") + "`r`n")
 }
 
 function Append-AgentsRule {
@@ -187,12 +209,12 @@ function Append-AgentsRule {
     if ($raw -match [regex]::Escape($bullet)) { return }
     if ($raw -match [regex]::Escape($sectionTitle)) {
         $updated = $raw.TrimEnd() + "`r`n$bullet`r`n"
-        Set-Content -LiteralPath $agentsPath -Value $updated -Encoding UTF8
+        Write-Utf8NoBomText -Path $agentsPath -Content $updated
         return
     }
 
     $updated = $raw.TrimEnd() + "`r`n`r`n$sectionTitle`r`n$bullet`r`n"
-    Set-Content -LiteralPath $agentsPath -Value $updated -Encoding UTF8
+    Write-Utf8NoBomText -Path $agentsPath -Content $updated
 }
 
 function Append-ApprovalLog {
@@ -202,18 +224,28 @@ function Append-ApprovalLog {
     )
     Ensure-ParentDirectory -Path $Path
     if (-not (Test-Path -LiteralPath $Path)) {
-        Set-Content -LiteralPath $Path -Value @(
+        $header = @(
             "# Rule approvals",
             "",
             "| 시각 | ID | 결과 | 메모 |",
             "|------|----|------|------|"
-        ) -Encoding UTF8
+        )
+        Write-Utf8NoBomText -Path $Path -Content (($header -join "`r`n") + "`r`n")
     }
-    Add-Content -LiteralPath $Path -Value $Line -Encoding UTF8
+    Add-Utf8NoBomLine -Path $Path -Line $Line
+}
+
+function Read-HookStdinUtf8 {
+    # Cursor sends UTF-8 (possibly BOM-prefixed) stdin; default console decoding is CP949.
+    $reader = New-Object System.IO.StreamReader(
+        [Console]::OpenStandardInput(), (New-Object System.Text.UTF8Encoding $false), $true)
+    try { $raw = $reader.ReadToEnd() } finally { $reader.Dispose() }
+    if ($null -eq $raw) { return "" }
+    return $raw.Trim([char]0xFEFF, [char]0x200B, ' ', "`t", "`r", "`n")
 }
 
 try {
-    $raw = [Console]::In.ReadToEnd()
+    $raw = Read-HookStdinUtf8
     if ([string]::IsNullOrWhiteSpace($raw)) { exit 0 }
 
     $payload = $raw | ConvertFrom-Json

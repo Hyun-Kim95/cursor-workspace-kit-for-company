@@ -1,4 +1,4 @@
-# Deterministic kit-wiki lint for CI (PR trigger) and local runs.
+﻿# Deterministic kit-wiki lint for CI (PR trigger) and local runs.
 # SSOT checks align with docs/wiki/README.md and shared/skills/kit-wiki/SKILL.md.
 # Does not invoke LLM. Read-only on wiki files (no auto-fix in CI).
 param(

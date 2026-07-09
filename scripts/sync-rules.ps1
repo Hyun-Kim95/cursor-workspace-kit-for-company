@@ -1,4 +1,4 @@
-# Sync SSOT rules into .cursor/rules for Cursor workspace loading.
+﻿# Sync SSOT rules into .cursor/rules for Cursor workspace loading.
 # SSOT: shared/rules, shared/optional, project-kit/.cursor/rules
 # Do not edit .cursor/rules directly — edit SSOT and re-run this script.
 

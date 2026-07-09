@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+﻿#!/usr/bin/env pwsh
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
@@ -37,8 +37,17 @@ function Ensure-ParentDirectory {
     }
 }
 
+function Read-HookStdinUtf8 {
+    # Cursor sends UTF-8 (possibly BOM-prefixed) stdin; default console decoding is CP949.
+    $reader = New-Object System.IO.StreamReader(
+        [Console]::OpenStandardInput(), (New-Object System.Text.UTF8Encoding $false), $true)
+    try { $raw = $reader.ReadToEnd() } finally { $reader.Dispose() }
+    if ($null -eq $raw) { return "" }
+    return $raw.Trim([char]0xFEFF, [char]0x200B, ' ', "`t", "`r", "`n")
+}
+
 try {
-    $raw = [Console]::In.ReadToEnd()
+    $raw = Read-HookStdinUtf8
     if ([string]::IsNullOrWhiteSpace($raw)) { exit 0 }
 
     $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path

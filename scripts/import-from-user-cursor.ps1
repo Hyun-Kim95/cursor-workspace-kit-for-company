@@ -1,4 +1,4 @@
-# Import User-level Cursor skills and agents into kit SSOT (shared/).
+﻿# Import User-level Cursor skills and agents into kit SSOT (shared/).
 # Use when pulling latest from ~/.cursor into Git SSOT — not for day-to-day edits.
 # Excludes: skills-cursor, client-project-lifecycle (project-kit SSOT).
 
@@ -53,7 +53,8 @@ if (Test-Path $AgentsSrc) {
         if ($_.BaseName -eq "backend-agent") {
             $content = Get-Content -Path $destFile -Raw -Encoding UTF8
             $content = $content -replace '(?m)^# user-backend-agent\s*$', '# backend-agent'
-            Set-Content -Path $destFile -Value $content -Encoding UTF8 -NoNewline
+            # UTF-8 without BOM (encoding-utf8-global); PS 5.1 Set-Content UTF8 adds a BOM.
+            [System.IO.File]::WriteAllText($destFile, $content, (New-Object System.Text.UTF8Encoding $false))
         }
         $agentCount++
         Write-Host "  agent: $($_.Name)"

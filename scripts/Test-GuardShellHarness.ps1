@@ -1,4 +1,4 @@
-# Manual verification for guard-shell.ps1 (Harness stage 2)
+﻿# Manual verification for guard-shell.ps1 (Harness stage 2)
 $ErrorActionPreference = "Stop"
 $ScriptsDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $KitRoot = Split-Path -Parent $ScriptsDir

@@ -1,4 +1,4 @@
-# beforeSubmitPrompt: /kit-rule-mine | /rule-mine — transcript rule mining (no manual terminal)
+﻿# beforeSubmitPrompt: /kit-rule-mine | /rule-mine — transcript rule mining (no manual terminal)
 $ErrorActionPreference = "Stop"
 
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path

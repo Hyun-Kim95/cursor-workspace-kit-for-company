@@ -1,4 +1,4 @@
-# Sync SSOT agents into .cursor/agents for Cursor workspace loading.
+﻿# Sync SSOT agents into .cursor/agents for Cursor workspace loading.
 # SSOT: shared/agents
 # Do not edit .cursor/agents directly — edit SSOT and re-run this script.
 

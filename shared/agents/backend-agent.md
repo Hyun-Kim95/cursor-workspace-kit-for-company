@@ -1,4 +1,4 @@
-﻿---
+---
 name: backend-agent
 description: API, DB, 서비스 로직, 인증/인가, 파일 처리, 서버 측 검증을 담당한다. (전역 user-backend-agent와 동일 역할)
 model: inherit
