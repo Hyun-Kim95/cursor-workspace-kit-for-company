@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- `sync-kit-product` — 채널 A(및 B 보조)에서 kit 제거 스킬/규칙 orphan prune (`context-organization`, `64-…`). `/kit-start` 후에도 슬래시에 옛 스킬이 남는 문제 완화. vendor kit이 구버전이면 submodule pull이 선행 필요
+
 ### Removed
 
 - `context-organization` 스킬 및 `64-context-organization.mdc` — 모호 요구 정리는 `plan-feature`로 단일화. 선행 정리 ≠ Gate 통과는 `60` 비고·`working-principles`에 유지

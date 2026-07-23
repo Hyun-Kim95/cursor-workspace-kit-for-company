@@ -118,17 +118,130 @@ function Copy-SharedGlobalRules {
     return $n
 }
 
+function Get-KitSsotSkillNames {
+    $names = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    foreach ($dir in @($sharedSkills, $projectKitSkills)) {
+        if (-not (Test-Path -LiteralPath $dir)) { continue }
+        Get-ChildItem -Path $dir -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+            [void]$names.Add($_.Name)
+        }
+    }
+    return $names
+}
+
+function Get-KitSsotProjectRuleNames {
+    $names = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    if (Test-Path -LiteralPath $projectKitRules) {
+        Get-ChildItem -Path $projectKitRules -Filter "*.mdc" -ErrorAction SilentlyContinue | ForEach-Object {
+            [void]$names.Add($_.Name)
+        }
+    }
+    return $names
+}
+
+# Channel A does not wipe .cursor/skills (product-local skills may exist).
+# Prune only kit-managed removals: previous sync list + known retirements.
+$script:RetiredKitSkillNames = @(
+    "context-organization"
+)
+$script:RetiredProjectKitRuleNames = @(
+    "64-context-organization.mdc"
+)
+
+function Remove-KitSkillOrphans {
+    param(
+        [string]$DestDir,
+        [string]$StatePath,
+        [System.Collections.Generic.HashSet[string]]$SsotNames
+    )
+    if (-not (Test-Path -LiteralPath $DestDir)) { return 0 }
+    $prev = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    if (Test-Path -LiteralPath $StatePath) {
+        try {
+            $raw = Get-Content -LiteralPath $StatePath -Raw -Encoding UTF8
+            $parsed = $raw | ConvertFrom-Json
+            foreach ($n in @($parsed.skills)) {
+                if ($n) { [void]$prev.Add([string]$n) }
+            }
+        } catch {
+            # ignore corrupt state; still apply retirements
+        }
+    }
+
+    $removed = 0
+    # Always drop known retirements (even if a stale vendor kit still ships them).
+    foreach ($name in $script:RetiredKitSkillNames) {
+        $path = Join-Path $DestDir $name
+        if (Test-Path -LiteralPath $path) {
+            Remove-Item -LiteralPath $path -Recurse -Force
+            $removed++
+            Write-Host "sync-kit-product: pruned retired skill '$name'"
+        }
+    }
+
+    Get-ChildItem -Path $DestDir -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+        $name = $_.Name
+        if ($SsotNames.Contains($name)) { return }
+        if (-not $prev.Contains($name)) { return }
+        Remove-Item -LiteralPath $_.FullName -Recurse -Force
+        $removed++
+        Write-Host "sync-kit-product: pruned skill orphan '$name'"
+    }
+    return $removed
+}
+
+function Remove-KitProjectRuleOrphans {
+    param(
+        [string]$DestDir,
+        [System.Collections.Generic.HashSet[string]]$SsotRuleNames
+    )
+    if (-not (Test-Path -LiteralPath $DestDir)) { return 0 }
+    $removed = 0
+    foreach ($name in $script:RetiredProjectKitRuleNames) {
+        if ($SsotRuleNames.Contains($name)) { continue }
+        $path = Join-Path $DestDir $name
+        if (Test-Path -LiteralPath $path) {
+            Remove-Item -LiteralPath $path -Force
+            $removed++
+            Write-Host "sync-kit-product: pruned rule orphan '$name'"
+        }
+    }
+    return $removed
+}
+
+function Write-KitSyncedSkillsState {
+    param(
+        [string]$StatePath,
+        [System.Collections.Generic.HashSet[string]]$SsotNames
+    )
+    $stateDir = Split-Path -Parent $StatePath
+    Ensure-Dir -Path $stateDir
+    $payload = [ordered]@{
+        updatedAt = (Get-Date).ToString("o")
+        skills = @($SsotNames | Sort-Object)
+    }
+    $json = $payload | ConvertTo-Json -Depth 4
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($StatePath, $json, $utf8NoBom)
+}
+
 $rulesCount = 0
 $skillsCount = 0
 $agentsCount = 0
+$skillsStatePath = Join-Path $cursorDest "state\kit-synced-skills.json"
+$ssotSkillNames = Get-KitSsotSkillNames
+$ssotProjectRuleNames = Get-KitSsotProjectRuleNames
 
 if ($Channel -eq "A") {
     $rulesCount = Copy-MdcFiles -SourceDir $projectKitRules -DestDir $rulesDest
     $rulesCount += Copy-SharedGlobalRules -SharedRulesDir $sharedRules -DestDir $rulesDest
+    [void](Remove-KitProjectRuleOrphans -DestDir $rulesDest -SsotRuleNames $ssotProjectRuleNames)
     if (Test-Path -LiteralPath $sharedSkills) {
         $skillsCount = Copy-SkillFolders -SourceDir $sharedSkills -DestDir $skillsDest
     }
     $skillsCount += Copy-SkillFolders -SourceDir $projectKitSkills -DestDir $skillsDest
+    [void](Remove-KitSkillOrphans -DestDir $skillsDest -StatePath $skillsStatePath -SsotNames $ssotSkillNames)
+    Write-KitSyncedSkillsState -StatePath $skillsStatePath -SsotNames $ssotSkillNames
     if (Test-Path -LiteralPath $sharedAgents) {
         $agentsCount = Copy-AgentFiles -SourceDir $sharedAgents -DestDir $agentsDest
     }
@@ -143,6 +256,9 @@ else {
     $rulesCount += Copy-MdcFiles -SourceDir $projectKitRules -DestDir $rulesDest
     $skillsCount = Copy-SkillFolders -SourceDir $sharedSkills -DestDir $skillsDest -ReplaceAll
     $skillsCount += Copy-SkillFolders -SourceDir $projectKitSkills -DestDir $skillsDest
+    # Stale vendor kits can still ship removed skills; prune retirements after copy.
+    [void](Remove-KitSkillOrphans -DestDir $skillsDest -StatePath $skillsStatePath -SsotNames $ssotSkillNames)
+    Write-KitSyncedSkillsState -StatePath $skillsStatePath -SsotNames $ssotSkillNames
     $agentsCount = Copy-AgentFiles -SourceDir $sharedAgents -DestDir $agentsDest -ReplaceAll
 
     Invoke-SyncKitProductHooks -WorkspaceRoot $WorkspaceRoot -KitRoot $KitRoot

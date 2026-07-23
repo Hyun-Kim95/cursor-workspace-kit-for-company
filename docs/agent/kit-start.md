@@ -69,7 +69,7 @@
 
 | channel | 제품 `.cursor/` 반영 | 전역 `~/.cursor` |
 |---------|----------------------|------------------|
-| **A** | `project-kit` rules(60·64·70) + **`shared/skills` 전체** + **`shared/agents` 6개** + `project-kit` 스킬 + **kit 관리 훅** (`kit-start`, `work-log`, harness, Obsidian 등) | (선택) User Rules·전역 `~/.cursor` — 제품 `.cursor/skills`·`.cursor/agents`가 SSOT |
+| **A** | `project-kit` rules(60·70) + **`shared/skills` 전체** + **`shared/agents` 6개** + `project-kit` 스킬 + **kit 관리 훅** (`kit-start`, `work-log`, harness, Obsidian 등). 채널 A는 제품 로컬 스킬을 지우지 않되, kit에서 제거된 스킬/규칙 orphan은 prune한다 | (선택) User Rules·전역 `~/.cursor` — 제품 `.cursor/skills`·`.cursor/agents`가 SSOT |
 | **B** | `shared/` + `project-kit/` 전부 → rules·skills·agents + **kit 관리 훅** (위와 동일) | 중복 제거 권장 |
 
 **채널 A:** `/start`마다 공통 **스킬·에이전트**가 제품 `.cursor/`에 복사된다. 전역 `~/.cursor/skills`·`~/.cursor/agents`와 **이름이 겹치면** 중복 로드될 수 있으니, 전역을 비우거나 kit과 맞추는 것을 권장한다([`product-onboarding.md`](product-onboarding.md) 문제 해결).
