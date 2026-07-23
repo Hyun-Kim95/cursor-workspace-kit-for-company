@@ -34,7 +34,7 @@ flowchart LR
   G1 --> G2 --> RED --> IMPL --> G3
 ```
 
-- **Gate 1:** PRD에 AC 섹션 필수. [`acceptance-criteria.template.md`](acceptance-criteria.template.md) 참고.
+- **Gate 1:** PRD에 AC 섹션 필수. [`acceptance-criteria.template.md`](acceptance-criteria.template.md) 참고 — 표에 **의도(왜)**(보호 가치·실패 시 피해) 열을 포함한다.
 - **Gate 2:** API·디자인·상태 UI 고정 **후**, 제품 구현 **전** acceptance test RED.
 - **Gate 3:** AC 대비 자동화 테스트 통과, 미매핑 AC 없음(수동 AC는 `manual` + 실행 기록).
 
@@ -44,7 +44,7 @@ flowchart LR
 
 - **행위·계약·상태** 중심 (로그인 성공, 404 시 빈 상태, API 403 등).
 - **픽셀·레이아웃** 검증은 AC에 넣지 않는다 (디자인 게이트·플래키 테스트 방지).
-- 각 AC: ID, 시나리오(Given-When-Then 또는 체크리스트), 대상(화면/API/권한), 상태, 자동/수동.
+- 각 AC: ID, 시나리오(Given-When-Then 또는 체크리스트), 대상(화면/API/권한), 상태, 자동/수동, **의도(왜)**.
 
 ## RED → GREEN 절차
 

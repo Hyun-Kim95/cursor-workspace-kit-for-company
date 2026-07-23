@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- **WHY P0** — AC 템플릿·예시·`atdd-lite`에 **의도(왜)** 열; `document-change` 출력 템플릿에 `## 왜 바꿨는지` 고정
+
 ### Fixed
 
 - `sync-kit-product` — 채널 A(및 B 보조)에서 kit 제거 스킬/규칙 orphan prune (`context-organization`, `64-…`). `/kit-start` 후에도 슬래시에 옛 스킬이 남는 문제 완화. vendor kit이 구버전이면 submodule pull이 선행 필요

@@ -2,7 +2,7 @@
 type: doc
 project: cursor-workspace-kit
 doc_lane: requirements
-updated_at: 2026-06-15
+updated_at: 2026-07-23
 tags: [docs, prd, atdd, example]
 ---
 
@@ -17,11 +17,11 @@ tags: [docs, prd, atdd, example]
 
 ## 수용 기준 (Acceptance Criteria)
 
-| ID | 시나리오 | 대상 | 상태 | 자동/수동 | 비고 |
-|----|----------|------|------|-----------|------|
-| AC-01 | Given 로그인 사용자 When 설정에서 알림 토글 off Then API `PATCH /api/me/preferences` 호출 후 UI가 off 상태 유지 | 화면+API | 기본 | auto | E2E 또는 통합 |
-| AC-02 | Given 비로그인 When `GET /api/me/preferences` Then `401` | API | 오류 | auto | |
-| AC-03 | Given 저장 API 500 When 토글 변경 Then 오류 메시지 표시·이전 값 복원 | 화면 | 오류 | auto | |
+| ID | 시나리오 | 대상 | 상태 | 자동/수동 | 의도(왜) | 비고 |
+|----|----------|------|------|-----------|----------|------|
+| AC-01 | Given 로그인 사용자 When 설정에서 알림 토글 off Then API `PATCH /api/me/preferences` 호출 후 UI가 off 상태 유지 | 화면+API | 기본 | auto | 설정이 저장되지 않으면 알림이 계속 울림 | E2E 또는 통합 |
+| AC-02 | Given 비로그인 When `GET /api/me/preferences` Then `401` | API | 오류 | auto | 타인 선호 설정 조회 차단 | |
+| AC-03 | Given 저장 API 500 When 토글 변경 Then 오류 메시지 표시·이전 값 복원 | 화면 | 오류 | auto | 실패를 성공으로 오인·잘못된 기대 방지 | |
 
 ### AC ↔ 테스트 매핑 (Gate 2 직후)
 
