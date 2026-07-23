@@ -2,7 +2,7 @@
 type: doc
 project: cursor-workspace-kit
 doc_lane: qa
-updated_at: 2026-04-21T21:51:12
+updated_at: 2026-07-23
 tags: [docs, vault-sync]
 ---
 
@@ -15,13 +15,15 @@ tags: [docs, vault-sync]
 - [ ] PRD 문서 경로: ``
 - [ ] PRD 버전/최종 수정 시각: ``
 - [ ] 목표/핵심 흐름/범위(핵심·선택)/정책·예외/미확정 항목이 명시됨
-- [ ] **수용 기준(AC):** `AC-01` 형식, 행위·계약·상태 중심 ([`acceptance-criteria.template.md`](acceptance-criteria.template.md))
+- [ ] **수용 기준(AC):** `AC-01` 형식, 행위·계약·상태 + **의도(왜)** ([`acceptance-criteria.template.md`](acceptance-criteria.template.md))
 - [ ] 원본 요구사항과 PRD 간 불일치 항목이 정리됨
 
 ## 2) 디자인 기준 확정 여부
 
 - [ ] 선택안: `자체 목업` / `Stitch 기반` / `기타`
 - [ ] 선택 근거(링크, 화면 ID, 에셋 ID): ``
+- [ ] **결정 로그:** 비교표 + 선택/제외 사유가 PRD(또는 동등 문서)에 기록됨 (`65-design-gate`)
+- [ ] **agent-brief** `Decisions this revision`(해당 시)에 디자인 선택 요약이 있음
 - [ ] 주요 화면 상태(기본/로딩/빈/오류/권한) 반영 확인
 - [ ] 웹/앱 대상 범위와 반응형 기준 확인
 - [ ] 라이트/다크 모드 지원 및 전환 기능(토글/스위치) 반영 계획 확인
@@ -29,6 +31,7 @@ tags: [docs, vault-sync]
 ## 3) Gate 2 진입 준비 (API + 상태 UI)
 
 - [ ] API 계약 확정(요청/응답 스키마, 인증·권한, 오류 포맷, 주요 상태 코드)
+- [ ] **결정 로그:** API/스키마·오류 포맷 확정 사유(또는 “대안 대비 선택”)가 PRD·brief·계약 문서에 한 줄 이상 있음
 - [ ] 상태 UI 정의 확정(기본/로딩/빈/오류/권한)
 - [ ] 화면 스펙과 API 계약의 용어/상태값 정합 확인
 - [ ] FE/BE 병렬 진행 시 작업 분할과 인터페이스 책임 구분 완료

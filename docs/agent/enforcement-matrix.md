@@ -192,6 +192,7 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 | 항목 | SSOT |
 |------|------|
 | 구현 후 변경 요약 (`document-change` / `docs-agent`) | [`document-change`](../../shared/skills/document-change/SKILL.md) · `60` Gate 3 |
+| 되돌리기 비싼 결정 → wiki `결정 (왜)` 1노트 | [`kit-wiki`](../../shared/skills/kit-wiki/SKILL.md) · [`client-project-lifecycle`](../../project-kit/.cursor/skills/client-project-lifecycle/SKILL.md) 단계 7 |
 | 정책·API·플로우 변경 시 문서 반영 우선 | `60` 문서 반영 운영 |
 | 세션 마무리 작업 일지 | [`kit-work-log`](../../shared/skills/kit-work-log/SKILL.md) · [`docs/work-log/`](../work-log/README.md) |
 
