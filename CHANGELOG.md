@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Removed
+
+- `context-organization` 스킬 및 `64-context-organization.mdc` — 모호 요구 정리는 `plan-feature`로 단일화. 선행 정리 ≠ Gate 통과는 `60` 비고·`working-principles`에 유지
+
 ### Added
 
 - **ATDD-lite** — `docs/qa/atdd-lite.md`, `acceptance-criteria.template.md`, `atdd-lite-consumption-checklist.md`, `atdd-lite-consumption-record-example.md`; `60` Gate 1 AC·Gate 2 RED·Gate 3 AC 커버리지; `stage3-entry-checklist` §3d
@@ -12,6 +16,7 @@
 - **ATDD-lite 정합** — `start-feature`, `parallel-delivery`, `client-project-lifecycle`, `70`, `verify-change`, `bugfix-flow`, `plan-feature`(AC 절), `prd-agent`·`qa-agent`·`frontend-agent`·`backend-agent`, `AGENTS.md`, `agent-brief`, `kit-inventory`, `rules-context-notes`, `integration-consumption-gate`, `product-onboarding`
 - **워크플로 시각화** — `cursor-workflow-detailed.html`, `docs/agent/workflow-overview.html`, `scripts/build-workflow-svg*.py`, `assets/ai-development-workflow*.svg` (ATDD-lite RED 단계)
 - `reviewer-gate-rubric`, `release-check` — AC·acceptance test 채점·릴리즈 점검 반영
+- `AGENTS.md`·`60`·`plan-feature`·배포/인벤토리 문서 — `context-organization`/`64` 참조 제거; 게이트 최소 세트 `60`+`70`
 
 ### Added
 

@@ -36,7 +36,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetti
 ### Rules — `.cursor/rules/`
 
 - `60-delivery-gates.mdc` — Gate 1~3, 병렬, DoD
-- `64-context-organization.mdc` — 맥락 정리 경계
 - `70-client-lifecycle-default.mdc` — 고객 E2E·디자인 승인=구현 착수
 
 ### Skills — `.cursor/skills/`

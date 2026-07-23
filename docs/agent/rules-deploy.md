@@ -39,7 +39,7 @@ powershell -NoProfile -File scripts/sync-kit.ps1
 | 위치 | 복사 대상 |
 |------|-----------|
 | Cursor User Rules | `shared/rules/*.mdc` 전체 (또는 마크다운으로 동일 내용) — UX·작업 원칙 등 |
-| 제품 `.cursor/rules/` (`/start` sync) | `project-kit` 게이트 rules(60, 64, 70) **+** `encoding-utf8-global`, `product-monetization-default` (`sync-kit-product.ps1`의 global whitelist) |
+| 제품 `.cursor/rules/` (`/start` sync) | `project-kit` 게이트 rules(60, 70) **+** `encoding-utf8-global`, `product-monetization-default` (`sync-kit-product.ps1`의 global whitelist) |
 
 제품 레포만 열어도 global 두 규칙이 적용되도록, 채널 A에서도 위 whitelist는 **제품 `.cursor/rules/`에 복사**한다. 나머지 `shared/rules`는 User Rules에 두는 전제는 그대로다.
 
@@ -58,7 +58,7 @@ powershell -NoProfile -File scripts/sync-kit.ps1
 ### 최소 세트 (고객 게이트만)
 
 1. 루트에 [`AGENTS.md`](../../AGENTS.md) 복사.
-2. `project-kit/.cursor/rules/` → 제품 `.cursor/rules/` (60, 64, 70).
+2. `project-kit/.cursor/rules/` → 제품 `.cursor/rules/` (60, 70).
 3. 공통 UX/UI 규칙은 **채널 A**로 User Rules에 `shared/rules` 배포, 또는 **채널 B**로 제품 레포에 `shared/rules` + sync 스크립트 복사.
 
 ### 전체 kit (이 레포와 동일)

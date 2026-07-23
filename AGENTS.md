@@ -21,7 +21,7 @@
 - 사용자가 "다음 작업"을 물었을 때 UI 변경 범위의 디자인 산출물이 없으면 구현보다 디자인 작업을 우선 제안한다.
 - 이중 디자인안을 요구하는 범위에서는 안 A(로컬 목업)와 안 B(Stitch 또는 동등 도구)를 준비하고, 비교표와 선택 사유를 기록한 뒤에만 구현으로 넘어간다.
 - 이중 디자인안 범위의 기본 순서는 **A/B 병렬 동시 작성 → 동시 제시·비교 → HUMAN 선택/승인**이며, 승인 전 구현으로 넘어가지 않는다.
-- `start-feature`·`plan-feature`·`parallel-delivery`·`verify-change`·`document-change`·`bugfix-flow`·`release-check`·`context-organization` 등 공통 스킬은 `shared/skills/`(sync 후 `.cursor/skills/`)를 우선 사용한다.
+- `start-feature`·`plan-feature`·`parallel-delivery`·`verify-change`·`document-change`·`bugfix-flow`·`release-check` 등 공통 스킬은 `shared/skills/`(sync 후 `.cursor/skills/`)를 우선 사용한다.
 - 고객 프로젝트형 게이트/승인 흐름은 `.cursor/rules/60-delivery-gates.mdc`, `.cursor/rules/70-client-lifecycle-default.mdc`를 따른다.
 - UI 병렬구현은 디자인 승인 + API 계약 고정이 완료된 뒤에만 허용한다.
 - 같은 내용을 Rules, Skills, Agents 파일에 중복 정의하지 않는다.
@@ -61,7 +61,7 @@
 다른 프로젝트에 동일 규칙을 적용할 때는 아래를 최소 세트로 복사한다. 상세는 `project-kit/README.md`, `docs/agent/rules-deploy.md`.
 
 - `AGENTS.md` (운영 원칙·역할 분담·우선순위·**직접 처리 예외 목록 SSOT**)
-- `project-kit/.cursor/rules/60-delivery-gates.mdc`, `70-client-lifecycle-default.mdc` (고객 프로젝트형; 64 권장)
+- `project-kit/.cursor/rules/60-delivery-gates.mdc`, `70-client-lifecycle-default.mdc` (고객 프로젝트형)
 - 공통 UX·작업 원칙: `shared/rules/` 전체를 User Rules 또는 제품 `.cursor/rules`에 배포
 
 ## 게이트/병렬/완료 기준
@@ -112,7 +112,7 @@ AI 대화·리서치·결정을 `docs/wiki/`(LLM 위키)로 정제 저장하고 
 - 고객사 신규 프로젝트를 **요구 붙여넣기 → PRD 승인 → 이중 목업 → 디자인 승인(=구현 착수 승인) → ATDD-lite RED → 병렬 구현 → 테스트·성능** 순으로 끝까지 진행하려면 `client-project-lifecycle`을 우선 고려한다.
 - 신규 기능 요청이면 `start-feature`를 우선 고려한다. (Gate 1 통과 후; UI+API 병렬이면 Gate 2 → **ATDD-lite RED** 후 `parallel-delivery` 병행)
 - 버그 수정 요청이면 `bugfix-flow`를 우선 고려한다.
-- 요구사항이 모호하거나 기획 정리가 먼저 필요하면 `plan-feature`를 우선 고려한다. (같은 선행을 3단 러브릭으로 쪼개려면 `context-organization`을 쓸 수 있으며, 둘 다 `60`·`70`·`75`·`AGENTS`에 종속이고, 러프한 아이디어/기획·스펙 부재일 때는 `plan-feature`·`context-organization` → Gate 1 충족 시 `start-feature` 순을 따른다.)
+- 요구사항이 모호하거나 기획 정리가 먼저 필요하면 `plan-feature`를 우선 고려한다. (러프한 아이디어/기획·스펙 부재일 때는 `plan-feature` → Gate 1 충족 시 `start-feature` 순을 따른다.)
 - 구현 후 품질 확인이 필요하면 `verify-change`를 사용한다. (Gate 3 종료 검증)
 - **생성·검증 분리(기본):** 메인이 산출(코드·`docs/` 문서) → `qa-agent` 독립 검증(파일·루브릭만 handoff, [`docs/agent/agent-brief.md`](docs/agent/agent-brief.md) 9절) → 메인은 판정 인용만. self-verify·검증 완료 선언은 메인 금지. 상세: `start-feature`·`verify-change`·`qa-agent`.
 - 변경사항 공유나 문서 정리가 필요하면 `document-change`를 사용한다. (병렬 중 계약 변경 시에도 수시 적용)

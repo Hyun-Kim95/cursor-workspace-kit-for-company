@@ -37,7 +37,7 @@ powershell -NoProfile -File scripts/sync-kit.ps1
 1. `import-from-user-cursor.ps1 -Force` → `sync-kit.ps1` (위)
 2. 이 레포를 연 채팅에서 스킬·에이전트가 로드되는지 확인
 3. **중복 제거** — kit와 **동일한** 항목을 전역에서 제거:
-   - `~/.cursor/skills/` 아래: `plan-feature`, `start-feature`, `parallel-delivery`, `verify-change`, `document-change`, `bugfix-flow`, `release-check`, `context-organization` 및 import로 shared에 넣은 기타 공통 스킬
+   - `~/.cursor/skills/` 아래: `plan-feature`, `start-feature`, `parallel-delivery`, `verify-change`, `document-change`, `bugfix-flow`, `release-check` 및 import로 shared에 넣은 기타 공통 스킬
    - `~/.cursor/agents/*.md` 6개 (frontend, backend, prd, qa, docs, design-system)
 4. **유지:** `~/.cursor/skills-cursor/`, 다른 제품 레포가 전역 skills를 쓰는 경우(채널 A)
 
@@ -56,7 +56,7 @@ kit 풀세트를 제품에 넣을 때는 `shared/`, `project-kit/`, `scripts/syn
 ## 신규 제품 레포 최소 세트
 
 - `AGENTS.md`
-- `project-kit/.cursor/rules/` (60, 64, 70)
+- `project-kit/.cursor/rules/` (60, 70)
 - 공통: `shared/rules` + `shared/skills` + `shared/agents` (User 전역 또는 제품 `.cursor` + sync)
 
 Rules만: [`rules-deploy.md`](rules-deploy.md)

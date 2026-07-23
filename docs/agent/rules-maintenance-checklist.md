@@ -36,7 +36,7 @@
 - [ ] Gate 2 후 RED·디자인 승인=구현 착수(`70`) 시점이 모순 없이 읽히는지
 - [ ] `AGENTS.md`의 게이트 요약·Gate 1 적용 범위 이해와 충돌 없는지
 - [ ] `70-client-lifecycle-default.mdc`·`AGENTS.md` 고객 프로젝트 절차와 모순 없는지
-- [ ] Gate 1 `비고`( `64` / `context-organization` )와 문구가 함께 읽혀도 Gate **조건**이 바뀌는 것이 아님이 분명한지
+- [ ] Gate 1 `비고`(선행 정리 ≠ Gate 통과)와 본문 Gate **조건**이 모순 없이 읽히는지
 - [ ] project-kit 수정 후 sync 실행
 
 ## `integration-consumption-gate`·`60` Gate 3·stage3·kit 온보딩을 바꿀 때
@@ -44,11 +44,6 @@
 - [ ] mock-only 금지·제품 구현 경로 문구와 **생성-only 금지**가 모순 없이 읽히는지
 - [ ] kit **4단계 소비 확인**과 **(선택) 5단계 AGENTS** 번호·역할이 `product-onboarding`에서 혼동 없는지
 - [ ] `AGENTS.md` 게이트 요약·`start-feature`·`parallel-delivery`·`kit-start`·frontend/backend-agent 링크가 문서 SSOT를 가리키는지
-
-## `64-context-organization.mdc`를 바꿀 때
-- [ ] `60`의 Gate 1/2/3 **정의·적용**을 **복붙**하거나 완화하지 않았는지(경계·용어·권한만)
-- [ ] `70`·`client-project-lifecycle` HUMAN **우선**·`context-organization` **선행**이 모순 없이 읽히는지
-- [ ] User-level skill `context-organization`·`plan-feature`·`AGENTS`와 **중복** 정의 늪이 없는지
 
 ## 새 규칙 파일을 추가할 때
 - [ ] SSOT 경로(`shared/` 또는 `project-kit/`)에만 추가
@@ -61,10 +56,6 @@
 - [ ] Gate·예외·절차 **정의를 복붙**하지 않았는지(링크·요약만; SSOT는 rule/skill)
 - [ ] `AGENTS.md` 직접 처리 예외·`60` 적용 범위·`70` 적용 판단과 판단표가 모순 없는지
 - [ ] `kit-inventory.md`·`rules-context-notes.md`·`AGENTS.md`에서 본 문서로 링크됐는지
-
-## `.cursor/skills`에 `context-organization` 등 **선행 러브릭** 스킬을 바꿀 때
-- [ ] `64`·`60`·`plan-feature`와 **Gate/조건**이 이중·모순 정의되지 않는지(위임·링크 위주)
-- [ ] 고객 HUMAN: `70` + `client-project-lifecycle` **우선** 문장 유지
 
 ## 완료 루프 하네스(`delivery-loop`) 훅·스크립트를 바꿀 때
 - [ ] `docs/agent/delivery-loop-harness.md`·`client-project-lifecycle`의 **선택** 절과 **HUMAN 비변** 문구가 모순 없는지

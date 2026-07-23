@@ -104,7 +104,6 @@ Kit SSOT는 Git에서 관리한다. **편집은 SSOT 경로만** 하고, 루트 
 | 파일 | 한 줄 목적 |
 |------|------------|
 | `60-delivery-gates.mdc` | Gate 1~3, 병렬, DoD, ATDD-lite |
-| `64-context-organization.mdc` | 맥락 정리 경계 |
 | `70-client-lifecycle-default.mdc` | 고객 E2E·디자인 승인=구현 착수 |
 
 ---
@@ -114,7 +113,6 @@ Kit SSOT는 Git에서 관리한다. **편집은 SSOT 경로만** 하고, 루트 
 | 폴더 | 용도 (요약) |
 |------|-------------|
 | `plan-feature` | 모호한 요청 → 요구·정책 정리 |
-| `context-organization` | Gate 비변 선행 3단 러브릭 |
 | `kit-start` | kit pull·sync (`/start`, `/kit-start` 훅; `start-feature`와 별개) |
 | `kit-rule-mine` | 트랜스크립트 규칙 배치 마이닝 (`/kit-rule-mine` 훅; `kit-start`·`start-feature`와 별개) |
 | `kit-wiki` | LLM 위키 지식 관리 (`/kit-wiki` ingest+lint, `/kit-wiki-ask` 읽기; `docs/wiki/`; `kit-rule-mine`과 별개) |

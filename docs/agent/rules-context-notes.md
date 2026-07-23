@@ -35,7 +35,6 @@
 | 파일 | 한 줄 목적 |
 |------|------------|
 | `60-delivery-gates.mdc` | Gate 1~3, 병렬 조건, DoD, ATDD-lite |
-| `64-context-organization.mdc` | 맥락 정리(3단) 러브릭; Gate/적용·HUMAN 권한은 60/70 |
 | `70-client-lifecycle-default.mdc` | 고객 E2E·디자인 승인 시 구현 착수 승인 통합 |
 
 ### 기타
