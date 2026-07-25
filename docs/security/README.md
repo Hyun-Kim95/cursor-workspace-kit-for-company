@@ -2,7 +2,7 @@
 type: doc
 project: cursor-workspace-kit
 doc_lane: security
-updated_at: 2026-07-03T00:00:00
+updated_at: 2026-07-25T00:00:00
 tags: [docs, security, vault-sync]
 ---
 
@@ -57,6 +57,30 @@ tags: [docs, security, vault-sync]
 | [`docs/qa/security-axis.template.md`](../qa/security-axis.template.md) | 단계 4B 산출 `security-axis-{날짜}.md` 템플릿 |
 
 **완료 선언 권고:** 제품에 `security-last.json`이 있고 `ok: false`이면 검증·완료·출시 준비 선언을 하지 않는다 (`quality-gate-last`·`perf-last`와 동일 패턴, [`policy-and-contract.md`](policy-and-contract.md)).
+
+## 참조 매핑 (배포 전 15항목 렌즈)
+
+외부에서 쓰는 배포 전 15항목 표와 kit 검사 ID의 **참조용** 대응이다. **검사 SSOT는 [`strict-axis-checklist.md`](strict-axis-checklist.md)의 A~F ID**이며, 아래 표로 검사 절차를 대체하지 않는다.
+
+| # | 렌즈 항목 | kit ID (SSOT) |
+|---|-----------|---------------|
+| 01 | CORS | D3 |
+| 02 | CSRF | C3 |
+| 03 | XSS + CSP | C2 · D2 |
+| 04 | SSRF | C5 |
+| 05 | AuthN/AuthZ | B1 · B4 · B5 |
+| 06 | RBAC · 테넌트 | B2 (역할·테넌트) · BaaS RLS |
+| 07 | 최소권한 | B2 · [`llm-and-agents.md`](llm-and-agents.md) |
+| 08 | Input + SQLi | C1 |
+| 09 | Rate Limit | F3 · vibe #4 |
+| 10 | 쿠키 · 세션 | D4 · B4 |
+| 11 | Secret · Rotation | A1 · F1 |
+| 12 | HTTPS · 보안헤더 | D1 · D2 |
+| 13 | Audit Log | F2 |
+| 14 | 에러 노출 | C6 |
+| 15 | 의존성 취약점 | A2 |
+
+자동 스캔(A1~A3)은 제품 `security:ci` 구현이 필요하고, kit `Invoke-SecurityGate.ps1`은 계약 스텁이다.
 
 ## 관련 kit
 

@@ -2,7 +2,7 @@
 type: doc
 project: cursor-workspace-kit
 doc_lane: security
-updated_at: 2026-06-05T00:00:00
+updated_at: 2026-07-25T00:00:00
 tags: [docs, security, strict, vault-sync]
 ---
 
@@ -11,6 +11,8 @@ tags: [docs, security, strict, vault-sync]
 PRD **보안 게이트=예** + **티어 strict**일 때 `client-project-lifecycle` 단계 4B **코드 품질·보안 축** SSOT. `qa-agent`·`backend-agent` 협업.
 
 산출: `docs/qa/security-axis-{날짜}.md` — 각 항목 **PASS / FAIL / N/A**, 심각도 **BLOCKER / MAJOR / MINOR**. 템플릿: [`docs/qa/security-axis.template.md`](../qa/security-axis.template.md)
+
+외부 배포 전 15항목 렌즈와의 대응은 [`README.md`](README.md) **참조 매핑**을 본다. **검사 SSOT는 본 문서 ID(A~F)** 이다.
 
 ---
 
@@ -31,7 +33,7 @@ PRD **보안 게이트=예** + **티어 strict**일 때 `client-project-lifecycl
 | ID | 항목 | 점검 |
 |----|------|------|
 | B1 | 인증 필수 경로 | 미인증 시 401/리다이렉트, 민감 API 노출 없음 |
-| B2 | 권한 검사 | 서버 측 검사(클라이언트 UI만으로 허용 금지) |
+| B2 | 권한 검사 | 서버 측 검사(클라이언트 UI만으로 허용 금지). 역할·리소스 스코프(RBAC)·테넌트 격리·최소권한(서버·DB·에이전트 도구) 포함 |
 | B3 | IDOR | 타 사용자 리소스 ID 변경 시 403/404 |
 | B4 | 세션·토큰 | 만료·로그아웃·탈취 시 무효화 경로 |
 | B5 | 비밀번호·자격증명 | 평문 저장·로그 출력 없음 |
@@ -49,6 +51,7 @@ PRD **보안 게이트=예** + **티어 strict**일 때 `client-project-lifecycl
 | C3 | CSRF | 상태 변경 요청에 토큰·SameSite 등 |
 | C4 | 파일 업로드 | 확장자·MIME·크기·저장 경로 |
 | C5 | SSRF (해당 시) | URL allowlist·내부 IP 차단 |
+| C6 | 에러 노출 | 프로덕션 응답·클라이언트에 스택·내부 경로·시크릿·상세 내부 오류 미포함 |
 
 ---
 

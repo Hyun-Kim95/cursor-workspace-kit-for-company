@@ -2,7 +2,7 @@
 type: doc
 project: cursor-workspace-kit
 doc_lane: qa
-updated_at: 2026-07-09
+updated_at: 2026-07-25
 tags: [docs, security, qa, template]
 ---
 
@@ -37,7 +37,7 @@ tags: [docs, security, qa, template]
 | ID | 항목 | 결과 | 심각도 | 근거 |
 |----|------|------|--------|------|
 | B1 | 인증 필수 경로 | PASS / FAIL / N/A | - | |
-| B2 | 권한 검사(서버 측) | PASS / FAIL / N/A | - | |
+| B2 | 권한 검사(서버 측·RBAC·테넌트·최소권한) | PASS / FAIL / N/A | - | |
 | B3 | IDOR | PASS / FAIL / N/A | - | |
 | B4 | 세션·토큰 무효화 | PASS / FAIL / N/A | - | |
 | B5 | 자격증명 평문 저장·로그 | PASS / FAIL / N/A | - | |
@@ -53,6 +53,7 @@ BaaS 사용 시 [`docs/security/baas-checklist.md`](../security/baas-checklist.m
 | C3 | CSRF | PASS / FAIL / N/A | - | |
 | C4 | 파일 업로드 | PASS / FAIL / N/A | - | |
 | C5 | SSRF (해당 시) | PASS / FAIL / N/A | - | |
+| C6 | 에러 노출 | PASS / FAIL / N/A | - | |
 
 ## D. 전송·헤더 (transport)
 
