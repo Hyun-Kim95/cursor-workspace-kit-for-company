@@ -4,6 +4,7 @@
 
 ### Changed
 
+- **security strict-axis** — B2에 RBAC·테넌트·최소권한 명시; C6 에러 노출 추가; `security-axis.template` 동기화; `docs/security/README.md`에 배포 전 15항목 **참조 매핑**(SSOT는 A~F)
 - **WHY P0** — AC 템플릿·예시·`atdd-lite`에 **의도(왜)** 열; `document-change` 출력 템플릿에 `## 왜 바꿨는지` 고정
 - **WHY P1–P2** — UX 규칙(`30`/`product-ui-core`/`40`) 근거 절; `stage3`·`60` Gate 2 결정 로그 체크; `start-feature`/`verify-change` rationale; lifecycle 단계 7·`document-change`·enforcement-matrix에 kit-wiki **권장**
 
