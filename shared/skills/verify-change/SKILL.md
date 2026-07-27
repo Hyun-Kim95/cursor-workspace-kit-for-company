@@ -38,25 +38,25 @@ description: 구현 결과를 요구사항, 상태 처리, 회귀 위험 기준�
 9. `.cursor/state/quality-gate-last.json`이 있으면 `ok`가 `true`인지 확인한다. `false`이면 완료·검증 완료 선언을 하지 않는다 ([`docs/agent/harness-layer1.md`](../../../docs/agent/harness-layer1.md)).
 10. 텍스트·문서·설정 파일을 추가·수정했다면 diff/미리보기에서 한글이 깨지지 않았는지 확인한다 (`encoding-utf8-global`).
 11. 다단계·병렬 작업을 마무리할 때 **완료 항목 / 미완 항목 / 다음 액션**을 한 블록으로 보고하고, 실행 계획·todo와 불일치가 없는지 확인한다.
-12. 완료·검증 완료를 선언하기 전, 사용자가 「여전히」「아직」「다시 확인」이라고 하기 쉬운 항목(요구 대비 구현, 상태 UI, sync·문서, 인코딩)을 체크리스트로 짚고, 빈 항목이 있으면 완료 선언하지 않는다.
-13. **생성·검증 분리** 시(기본): `qa-agent`로 독립 검증을 **필수** 수행한다. 메인이 직접 「검증 완료」를 선언하면 **절차 위반**이다. (`AGENTS.md` **직접 처리 가능한 예외**·단일 파일 소규모 수정은 제외.)
-14. 수정이 필요하면 다시 적절한 Skill 또는 Agent로 되돌린다.
+12. **생성·검증 분리** 시(기본): 아래 **독립 검증 계약**에 따라 `qa-agent`를 **필수** 호출한다. 메인이 「검증 완료」를 선언하면 절차 위반이다. (`AGENTS.md` **직접 처리 가능한 예외**·단일 파일 소규모 수정은 제외.)
+13. 수정이 필요하면 다시 적절한 Skill 또는 Agent로 되돌린다.
 
-(2c, 8~12: 과거 대화 마이닝·HUMAN 승인 반영 — [`docs/agent/rule-candidates.md`](../../../docs/agent/rule-candidates.md), [`rule-candidates-promotion-preview.md`](../../../docs/agent/rule-candidates-promotion-preview.md))
+(2c, 8~11: 과거 대화 마이닝·HUMAN 승인 반영 — [`docs/agent/rule-candidates.md`](../../../docs/agent/rule-candidates.md). 「여전히/아직/다시 확인」류 체크는 **qa-agent 기본 루브릭**으로 이전.)
 
 ## 독립 검증 계약
 
-생성(메인·구현 에이전트)과 검증(`qa-agent`)의 맥락을 분리해 self-bias·조기 완료를 줄인다. 상세 handoff: [`docs/agent/agent-brief.md`](../../../docs/agent/agent-brief.md) **9) Verifier Handoff**.
+생성(메인·구현 에이전트)과 검증(`qa-agent`)의 맥락을 분리해 self-bias·조기 완료를 줄인다. **생성·검증 분리의 SSOT는 본 절**이다. 상세 handoff: [`docs/agent/agent-brief.md`](../../../docs/agent/agent-brief.md) **9) Verifier Handoff**.
 
 ### 공통
 
 - 검증 입력: **`artifactPaths` + `rubric`/`rubricRef` + `forbidden`** 만. 생성 대화·메인 reasoning은 넘기지 않는다.
 - 메인은 `qa-agent` **판정만** 보고에 인용한다. 자체 재해석·완화 금지.
 - 체크리스트 작업: `checkedItems: N/M`, `uncheckedIds: [...]`를 필수 보고. 미완이 있으면 완료 선언 금지.
+- handoff에 `rubric`/`rubricRef`를 줄 때, 명시가 없으면 `qa-agent` **기본 완료 루브릭**(「여전히/아직/다시 확인」 항목)을 포함한다.
 
 ### 코드 검증
 
-- Gate 3(DoD), 상태 UI(기본/로딩/빈/오류/권한), 회귀, harness(`quality-gate-last`, `security-last`, `perf-last`)는 위 **절차 1~12**를 따른다.
+- Gate 3(DoD), 상태 UI(기본/로딩/빈/오류/권한), 회귀, harness(`quality-gate-last`, `security-last`, `perf-last`)는 위 **절차 1~11**을 따른다.
 
 ### 문서·기획 검증
 

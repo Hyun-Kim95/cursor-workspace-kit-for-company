@@ -3,6 +3,8 @@
 **기준:** 2026-05-29 배치 마이닝 · `docs/agent/rule-candidates.ndjson` 27건 · kit SSOT 수동 승격([`rule-candidates.md`](rule-candidates.md))  
 **주의:** `규칙 승인` 훅만 누르면 기존 `shared/skills/.../SKILL.md`는 **거의 수정되지 않음**. 아래 초안대로 **직접 편집** → `scripts/sync-kit.ps1` → ndjson에서 **반려** 처리 권장.
 
+> **상태 (2026-07-27):** 섹션 B의 「다시 확인」 절차는 `verify-change` 메인 번호에서 **`qa-agent` 기본 완료 루브릭**으로 이전됨. 아래 B·G의 옛 삽입 문안은 **히스토리**이며, 현재 SSOT는 [`verify-change`](../../shared/skills/verify-change/SKILL.md) **독립 검증 계약** + [`qa-agent`](../../shared/agents/qa-agent.md) **기본 완료 루브릭**이다. 새로 붙이지 말 것.
+
 ---
 
 ## 요약
@@ -10,7 +12,7 @@
 | 판정 | 건수 | 조치 |
 |------|------|------|
 | 이미 반영됨 | 3 클러스터 | ndjson **반려** (중복) |
-| kit 승격 권장 | 4항목 (스킬/규칙) | 아래 문장 **복사·붙여넣기** |
+| kit 승격 (히스토리·완료) | 4항목 | B는 qa 루브릭 이전 완료 — **새로 붙이지 말 것**; C 등은 당시 반영분 |
 | 제품 전용 | 20 클러스터 | ndjson **반려** (해당 제품 레포만) |
 
 ---
@@ -27,11 +29,13 @@
 
 ---
 
-## B. kit 승격 — `shared/skills/verify-change/SKILL.md`
+## B. kit 승격 — `shared/skills/verify-change/SKILL.md` (히스토리)
 
-**삽입 위치:** 현재 **10번 다음**, 기존 11·12(qa-agent·되돌리기) **앞**에 13·14 추가 후 번호 유지.
+**현재:** 「다시 확인」류는 **qa-agent 기본 완료 루브릭**. verify-change 절차에 아래 14번을 **다시 넣지 않는다**.
 
-### 붙일 문장 (전체)
+**당시 삽입 위치(기록):** 10번 다음, 당시 11·12(qa·되돌리기) 앞에 13·14 추가.
+
+### 붙였던 문장 (전체, 히스토리)
 
 ```markdown
 13. 다단계·병렬 작업을 마무리할 때 **완료 항목 / 미완 항목 / 다음 액션**을 한 블록으로 보고하고, 실행 계획·todo와 불일치가 없는지 확인한다.
@@ -40,16 +44,16 @@
 
 ### 매핑된 후보 (승격 후 ndjson 반려)
 
-| 후보 ID | 클러스터 | hits | 13·14 중 |
-|---------|----------|------|----------|
-| `rc_mined_0` | repeat_fail\|general | 49 | **14** |
-| `rc_mined_9` | recheck\|sync | 13 | **13** |
-| `rc_mined_20` | recheck\|api | 6 | **13** |
-| `rc_mined_21` | recheck\|darkmode | 6 | **13** |
-| `rc_mined_2` | recheck\|general | 24 | 13·14 일부 |
-| `rc_mined_8` | omission\|general | 15 | 14 (메타·마이닝 맥락) |
+| 후보 ID | 클러스터 | hits | 당시 13·14 / 현재 |
+|---------|----------|------|-------------------|
+| `rc_mined_0` | repeat_fail\|general | 49 | 14 → **qa-agent 기본 루브릭** |
+| `rc_mined_9` | recheck\|sync | 13 | 13 → verify **11** (완료/미완 보고) |
+| `rc_mined_20` | recheck\|api | 6 | 13 → verify **11** |
+| `rc_mined_21` | recheck\|darkmode | 6 | 13 → verify **11** |
+| `rc_mined_2` | recheck\|general | 24 | 일부 → verify 11 + qa 루브릭 |
+| `rc_mined_8` | omission\|general | 15 | 14 → **qa-agent 기본 루브릭** |
 
-**반려 예시:** `규칙 반려 rc_mined_0 사유: verify-change 14번으로 승격`
+**반려 예시:** `규칙 반려 rc_mined_0 사유: qa-agent 기본 완료 루브릭으로 이전·반영`
 
 ---
 
@@ -127,7 +131,7 @@ PRD·Gate·API·스킬/규칙·README를 건드린 변경은 **요구 ↔ 문서
 
 ## F. 실행 체크리스트 (승인 전 미리보기 = 이 문서)
 
-1. [x] **B** — `shared/skills/verify-change/SKILL.md`에 11·12 추가 (기존 13·14를 11·12로 삽입, qa·되돌리기는 13·14)  
+1. [x] **B** — 당시 verify-change에 완료/미완·「다시 확인」 반영. **2026-07-27:** 「다시 확인」은 `qa-agent` 기본 완료 루브릭으로 이전(verify 메인 절차에서 제거).  
 2. [x] **C** — `shared/skills/document-change/SKILL.md`에 `### 0)` 추가  
 3. [ ] (선택) **D** — `shared/rules/working-principles.mdc` 불릿 1개 — **생략**  
 4. [x] `powershell -NoProfile -File scripts/sync-kit.ps1`  
@@ -136,14 +140,14 @@ PRD·Gate·API·스킬/규칙·README를 건드린 변경은 **요구 ↔ 문서
 
 ---
 
-## G. `verify-change` 적용 후 절차 번호 (참고)
+## G. `verify-change` 절차 번호 (현재, 2026-07-27)
 
-적용 후 절차는 대략 다음 순서가 됩니다.
+1~10 — Gate 3, 상태 UI, …, sync, quality-gate, UTF-8  
+**11** — 완료 항목 / 미완 항목 / 다음 액션  
+**12** — 생성·검증 분리 → `qa-agent` (독립 검증 계약)  
+**13** — 수정 시 스킬/에이전트로 되돌리기  
 
-1~10 — 기존 (Gate 3, 상태 UI, …, sync, quality-gate, UTF-8)  
-**11~12 — 신규 (위 B, 마이닝 2차)**  
-13 — qa-agent  
-14 — 되돌리기  
+「다시 확인」류 체크리스트는 **`qa-agent` 기본 완료 루브릭**(handoff rubric 미지정 시).
 
 `(8~10: 마이닝 1차 승격 — [`rule-mined-kit-promotion.md`](rule-mined-kit-promotion.md))`
 

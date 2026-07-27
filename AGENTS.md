@@ -9,7 +9,7 @@
 
 ## 정책 출처(SSOT)
 
-- 실행 계획 형식, 라이트/풀 선택, 분담 임계치·서브 타입 매핑·재계획: [`shared/rules/working-principles.mdc`](shared/rules/working-principles.mdc)가 SSOT다.
+- 실행 계획 형식, **라이트/풀** 선택, 분담 임계치·서브 타입 매핑·재계획: [`shared/rules/working-principles.mdc`](shared/rules/working-principles.mdc) **분담 임계치** 절(라이트/풀 포함)이 SSOT다.
 - **직접 처리 가능한 예외**의 목록(아래 해당 섹션)은 **본 파일이 SSOT**다. 다른 규칙·스킬은 목록을 늘리지 않고 이 섹션을 가리킨다.
 
 ## 운영 원칙
@@ -114,7 +114,7 @@ AI 대화·리서치·결정을 `docs/wiki/`(LLM 위키)로 정제 저장하고 
 - 버그 수정 요청이면 `bugfix-flow`를 우선 고려한다.
 - 요구사항이 모호하거나 기획 정리가 먼저 필요하면 `plan-feature`를 우선 고려한다. (러프한 아이디어/기획·스펙 부재일 때는 `plan-feature` → Gate 1 충족 시 `start-feature` 순을 따른다.)
 - 구현 후 품질 확인이 필요하면 `verify-change`를 사용한다. (Gate 3 종료 검증)
-- **생성·검증 분리(기본):** 메인이 산출(코드·`docs/` 문서) → `qa-agent` 독립 검증(파일·루브릭만 handoff, [`docs/agent/agent-brief.md`](docs/agent/agent-brief.md) 9절) → 메인은 판정 인용만. self-verify·검증 완료 선언은 메인 금지. 상세: `start-feature`·`verify-change`·`qa-agent`.
+- **생성·검증 분리(기본):** SSOT는 [`shared/skills/verify-change/SKILL.md`](shared/skills/verify-change/SKILL.md) **독립 검증 계약**. handoff: [`docs/agent/agent-brief.md`](docs/agent/agent-brief.md) 9절. `start-feature`·`qa-agent`는 이를 따른다.
 - 변경사항 공유나 문서 정리가 필요하면 `document-change`를 사용한다. (병렬 중 계약 변경 시에도 수시 적용)
 - 세션·하루 마무리 시 작업 일지가 필요하면 `kit-work-log` 또는 `/kit-work-log`를 사용한다. (`docs/work-log/YYYY-MM-DD.md`)
 - 대화·리서치·결정을 지식으로 정제·축적하거나(`/kit-wiki`) 위키 기반으로 다시 꺼내 쓰려면(`/kit-wiki-ask`) `kit-wiki`를 사용한다. (`docs/wiki/`; 규칙 후보 수집인 `kit-rule-mine`과 다름)
@@ -146,7 +146,7 @@ AI 대화·리서치·결정을 `docs/wiki/`(LLM 위키)로 정제 저장하고 
 
 ## 분담 임계치
 
-- 분담 판단/서브 타입 매핑은 `shared/rules/working-principles.mdc`를 SSOT로 따른다.
+- 분담 판단·Task 상한·서브 타입 매핑·생성·검증 분담 면제는 [`shared/rules/working-principles.mdc`](shared/rules/working-principles.mdc) **분담 임계치** 절을 따른다.
 
 ## 금지사항
 

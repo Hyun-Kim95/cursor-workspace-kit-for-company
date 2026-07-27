@@ -101,7 +101,7 @@ PRD가 확정된 뒤에만 진행한다.
 
 7. 계약 변경 시 `document-change`로 동기화한다.
 
-8. **기능·요구 일치·DoD**는 단계 4에서 **생성·검증 분리**로 판정한다: 산출물 경로 → `qa-agent` 독립 검증 → `verify-change` Gate 3. 메인 **self-verify 금지**. 단계 3만으로 “완료”를 선언하지 않는다.
+8. **기능·요구 일치·DoD**는 단계 4에서 **생성·검증 분리**로 판정한다 ([`verify-change`](../../../shared/skills/verify-change/SKILL.md) **독립 검증 계약**). 단계 3만으로 “완료”를 선언하지 않는다.
 
 ### 선택 — 완료 루프 하네스(Ralph류 반복)
 
@@ -113,7 +113,7 @@ PRD가 확정된 뒤에만 진행한다.
 - 터미널: `scripts/delivery/Invoke-DeliveryLoop.ps1`로 테스트 명령을 상한까지 반복 실행할 수 있다.
 
 ## 단계 4 — 구현 완료 후 PRD 재검증 (루프)
-1. **생성·검증 분리:** 구현·문서 산출 후 메인 self-verify 금지. `artifactPaths`·`rubricRef`·`forbidden`만 [`docs/agent/agent-brief.md`](../../../docs/agent/agent-brief.md) **9) Verifier Handoff**로 `qa-agent`에 넘긴 뒤, `verify-change`로 **확정 PRD**와 구현·문서·API 계약 일치를 검증한다 (Gate 3 / DoD).
+1. **생성·검증 분리:** [`verify-change`](../../../shared/skills/verify-change/SKILL.md) **독립 검증 계약**으로 `qa-agent` handoff 후 **확정 PRD**와 구현·문서·API 계약 일치를 검증한다 (Gate 3 / DoD).
 
 2. 불일치면 구현 또는 문서를 수정하고 **다시 단계 4**로 돌아간다.
 

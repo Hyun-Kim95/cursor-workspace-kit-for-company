@@ -64,8 +64,9 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 |------|------|
 | `/start` kit pull·sync 실패 시 작업 차단 (fail-closed) | [`AGENTS.md`](../../AGENTS.md) · [`kit-start.md`](kit-start.md) |
 | 로컬 dev 서버 작업 마무리 시 기본 종료 | [`shared/rules/dev-server-cleanup-global.mdc`](../../shared/rules/dev-server-cleanup-global.mdc) |
-| 생성·검증 분리 — self-verify 금지, `qa-agent` 독립 검증 | [`AGENTS.md`](../../AGENTS.md) · [`verify-change`](../../shared/skills/verify-change/SKILL.md) |
+| 생성·검증 분리 — self-verify 금지, `qa-agent` 독립 검증 | [`verify-change`](../../shared/skills/verify-change/SKILL.md) **독립 검증 계약** (SSOT) · [`AGENTS.md`](../../AGENTS.md)는 링크 |
 | `quality-gate-last.json`의 `ok: false`이면 완료·검증 완료 선언 금지 | [`AGENTS.md`](../../AGENTS.md) · [`harness-layer1.md`](harness-layer1.md) |
+| 분담 임계·Task 상한(≤2)·메인 단독 기준 | [`working-principles.mdc`](../../shared/rules/working-principles.mdc) **분담 임계치** |
 
 ---
 
@@ -139,12 +140,13 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 
 | 규칙 | 적용 조건 | SSOT |
 |------|-----------|------|
-| `20-web-vs-app` | UI 있는 프로젝트 | [`shared/rules/20-web-vs-app.mdc`](../../shared/rules/20-web-vs-app.mdc) |
-| `30-table-pagination` | 웹 테이블 목록 화면 | [`shared/rules/30-table-pagination.mdc`](../../shared/rules/30-table-pagination.mdc) |
-| `40-dark-mode` | UI 있는 프로젝트 | [`shared/rules/40-dark-mode.mdc`](../../shared/rules/40-dark-mode.mdc) |
-| `50-index-css-contract` | 전역 스타일 작업 | [`shared/rules/50-index-css-contract.mdc`](../../shared/rules/50-index-css-contract.mdc) |
+| `20-web-vs-app` | UI 파일 globs / frontend·start-feature 진입 시 (always 아님) | [`shared/rules/20-web-vs-app.mdc`](../../shared/rules/20-web-vs-app.mdc) |
+| `30-table-pagination` | 목록 UI globs / frontend 진입 시 | [`shared/rules/30-table-pagination.mdc`](../../shared/rules/30-table-pagination.mdc) |
+| `40-dark-mode` | UI 파일 globs / frontend·start-feature 진입 시 | [`shared/rules/40-dark-mode.mdc`](../../shared/rules/40-dark-mode.mdc) |
+| `50-index-css-contract` | UI·CSS globs / frontend 진입 시 | [`shared/rules/50-index-css-contract.mdc`](../../shared/rules/50-index-css-contract.mdc) |
 
 > `20`·신규 스택 기본값: **brownfield 유지보수에는 자동 강제하지 않음** (`20` 적용 대상 절).
+> `65`·`product-ui-core` 등은 계속 always(또는 게이트 always).
 
 ### 선택적 게이트 (PRD에서 해당 항목 = 예)
 

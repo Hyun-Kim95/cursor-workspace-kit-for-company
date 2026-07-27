@@ -1,6 +1,7 @@
 ---
-description: 전역 스타일·디자인 기준(파일명 가정 없음, Stitch 병행 가능)
-alwaysApply: true
+description: 전역 스타일·디자인 기준 계약 — UI·CSS·디자인 토큰 작업 시
+globs: "**/*.{tsx,jsx,vue,css,scss,html}"
+alwaysApply: false
 ---
 
 # 50-index-css-contract

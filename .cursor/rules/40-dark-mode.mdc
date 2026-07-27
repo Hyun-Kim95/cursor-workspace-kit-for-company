@@ -1,6 +1,7 @@
 ---
-description: 다크모드를 기본 지원하기 위한 전역 시각 규칙
-alwaysApply: true
+description: 다크모드 기본 지원 — UI·테마·스타일 작업 시
+globs: "**/*.{tsx,jsx,vue,css,scss,html,dart}"
+alwaysApply: false
 ---
 
 # 40-dark-mode

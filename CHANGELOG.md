@@ -4,6 +4,9 @@
 
 ### Changed
 
+- **하네스 MINOR 패치** — 라이트/풀·중점 표기·Task≤2↔start-feature·release-check Gate 3 문구·30 globs에 dart·qa 루브릭 키워드·promotion 요약 표 히스토리화
+- **하네스 MAJOR 패치** — `working-principles`에 **라이트/풀** 절 실체화·Task 예외 (a)(b) 명시; `frontend-agent` UI 규칙 「있으면 읽고 적용 / 없으면 제안만」으로 모순 해소; `rule-candidates-promotion-preview`에 「다시 확인」→qa 루브릭 이전 **히스토리** 표시
+- **하네스 스타일 맞춤 (Opus 5 점검 반영)** — `working-principles`에 **분담 임계치·Task 상한(≤2)** 실체화; `20`/`30`/`40`/`50`을 always→globs(UI 시); `30`은 기존·PRD 우선+15건 권장; 생성·검증 SSOT를 `verify-change`로 단일화; 「다시 확인」 체크를 `qa-agent` 기본 루브릭으로 이전; 보고 간결 한 줄 보강
 - **security strict-axis** — B2에 RBAC·테넌트·최소권한 명시; C6 에러 노출 추가; `security-axis.template` 동기화; `docs/security/README.md`에 배포 전 15항목 **참조 매핑**(SSOT는 A~F)
 - **WHY P0** — AC 템플릿·예시·`atdd-lite`에 **의도(왜)** 열; `document-change` 출력 템플릿에 `## 왜 바꿨는지` 고정
 - **WHY P1–P2** — UX 규칙(`30`/`product-ui-core`/`40`) 근거 절; `stage3`·`60` Gate 2 결정 로그 체크; `start-feature`/`verify-change` rationale; lifecycle 단계 7·`document-change`·enforcement-matrix에 kit-wiki **권장**

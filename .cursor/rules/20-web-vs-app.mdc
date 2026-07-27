@@ -1,6 +1,7 @@
 ---
-description: 웹과 앱의 UX 차이를 구분해 적용하는 공통 원칙
-alwaysApply: true
+description: 웹과 앱의 UX 차이를 구분해 적용 — UI/웹·앱 화면 작업 시
+globs: "**/*.{tsx,jsx,vue,css,scss,html,dart}"
+alwaysApply: false
 ---
 
 # 20-web-vs-app

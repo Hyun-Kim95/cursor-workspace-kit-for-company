@@ -25,11 +25,17 @@ powershell -NoProfile -File scripts/sync-kit.ps1
 이전에 User Rules UI에 긴 블록을 붙여 두었다면, sync 후 **중복 적용**을 막기 위해:
 
 1. `scripts/sync-kit.ps1`(또는 `sync-rules.ps1`) 실행으로 `.cursor/rules`가 최신인지 확인한다.
-2. Cursor **Settings → Rules → User Rules**에서 아래와 **동일한 내용**을 제거한다.
-   - `product-ui-core-global`
-   - `emergent-rule-capture-global`
-   - 기본 작업 원칙 전체 블록
-   - (선택) `Always respond in Korean` — `locale-ko`를 sync에 쓰는 경우
+2. Cursor **Settings → Rules → User Rules**에서 아래와 **동일한 내용**을 제거한다 (채널 B).
+
+| 제거할 블록 | kit SSOT (이미 `.cursor/rules`에 있음) |
+|-------------|----------------------------------------|
+| `product-ui-core-global` 전체 | `shared/rules/product-ui-core-global.mdc` |
+| `emergent-rule-capture-global` 전체 | `shared/rules/emergent-rule-capture-global.mdc` |
+| 기본 작업 원칙 / working-principles 전체 | `shared/rules/working-principles.mdc` |
+| `Always respond in Korean` (선택) | `shared/optional/locale-ko.mdc` |
+
+**남길 수 있는 것(예시):** git 커밋 프로토콜, PR 생성 절차, 프론트 디자인 하드룰처럼 **kit에 없는** User-only 지시.
+
 3. 규칙이 한 번만 적용되는지 새 채팅으로 smoke test한다.
 
 ## 채널 A — User Rules + 제품 `.cursor/rules` 분리
