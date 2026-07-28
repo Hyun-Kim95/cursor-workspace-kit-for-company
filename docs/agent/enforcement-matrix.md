@@ -65,6 +65,9 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 | `/start` kit pull·sync 실패 시 작업 차단 (fail-closed) | [`AGENTS.md`](../../AGENTS.md) · [`kit-start.md`](kit-start.md) |
 | 로컬 dev 서버 작업 마무리 시 기본 종료 | [`shared/rules/dev-server-cleanup-global.mdc`](../../shared/rules/dev-server-cleanup-global.mdc) |
 | 생성·검증 분리 — self-verify 금지, `qa-agent` 독립 검증 | [`verify-change`](../../shared/skills/verify-change/SKILL.md) **독립 검증 계약** (SSOT) · [`AGENTS.md`](../../AGENTS.md)는 링크 |
+| Verifier Handoff 고정 블록(허용 키만·거부 목록) | [`agent-brief.md`](agent-brief.md) **9)** (필드 SSOT) · [`qa-agent`](../../shared/agents/qa-agent.md) |
+| 구현↔qa `maxVerifyRounds`(기본 3)·초과 시 HUMAN | [`delivery-loop-harness.md`](delivery-loop-harness.md) · [`verify-change`](../../shared/skills/verify-change/SKILL.md) · lifecycle 단계 4C |
+| Gate 3: `docs/qa/verify-*.md` + **BLOCKER 0** 없이 완료·검증 완료 선언 금지 (직접 처리 예외 제외) | [`verify-change`](../../shared/skills/verify-change/SKILL.md) **완료 선언 증거** · [`60-delivery-gates`](../../project-kit/.cursor/rules/60-delivery-gates.mdc) Gate 3 · [`AGENTS.md`](../../AGENTS.md) |
 | `quality-gate-last.json`의 `ok: false`이면 완료·검증 완료 선언 금지 | [`AGENTS.md`](../../AGENTS.md) · [`harness-layer1.md`](harness-layer1.md) |
 | 분담 임계·Task 상한(≤2)·메인 단독 기준 | [`working-principles.mdc`](../../shared/rules/working-principles.mdc) **분담 임계치** |
 

@@ -40,7 +40,7 @@
 - 기능/요구사항 충족 기준
 - 상태 처리 기준(기본/로딩/빈/오류/권한)
 - 회귀 위험 점검 기준
-- **생성·검증 분리:** `qa-agent` **BLOCKER 0**, 불합격 항목 0 (판정은 메인이 재해석하지 않음)
+- **생성·검증 분리:** `qa-agent` **BLOCKER 0**, 불합격 항목 0 (판정은 메인이 재해석하지 않음). 증거 파일: `docs/qa/verify-{날짜 또는 slug}.md` (경로를 완료 보고에 인용)
 
 ## 7) Open Questions
 - 현재 확정되지 않은 사항
@@ -54,15 +54,54 @@
 
 ## 9) Verifier Handoff (생성·검증 분리)
 
-메인이 산출을 마친 뒤 `qa-agent`에 넘길 때 아래만 전달한다. 생성 대화·작성 reasoning은 포함하지 않는다.
+메인이 산출을 마친 뒤 `qa-agent`에 넘길 때 **아래 고정 블록만** 전달한다. 생성 대화·작성 reasoning·구현 변명은 포함하지 않는다.  
+**필드 SSOT:** 본 절. `qa-agent`·`verify-change`는 본 절을 가리킨다(필드 목록을 늘리지 않음).
 
-| 필드 | 내용 |
+### 허용 필드 (이 키만)
+
+| 필드 | 필수 | 내용 |
+|------|------|------|
+| `artifactPaths` | **필수** | 검증 대상 파일·모듈 경로 목록 |
+| `rubricRef` | 권장† | Gate 3, `docs/qa/atdd-lite.md`, `docs/qa/reviewer-gate-rubric.md`, 작업별 체크리스트 경로 또는 한 줄 요약 |
+| `forbidden` | **필수** | 금지 조건. 최소: 산출물 수정 / 칭찬·완화 / 생성 맥락·reasoning 참조 |
+| `acceptanceTestPaths` | ATDD 시 | acceptance test 경로 목록. 해당 없으면 키 생략 또는 `[]` |
+| `acIds` | ATDD 시 | PRD AC ID 목록. 해당 없으면 키 생략 또는 `[]` |
+
+† 루브릭 충족 수단(택1): `rubricRef` **또는** 인라인 `rubric` **또는** 둘 다 없을 때 검증기 **기본 완료 루브릭**. 경로·ID가 있으면 `rubricRef`를 우선한다.
+
+### 고정 블록 (복붙용)
+
+Task/`qa-agent` 프롬프트에는 **이 형태만** 넣는다. 위아래 서론·변명·대화 요약 금지.
+
+```markdown
+## Verifier Handoff
+- artifactPaths:
+  - <path>
+  - <path>
+- acceptanceTestPaths: []
+- acIds: []
+- rubricRef: <Gate 3 | 체크리스트 경로 | 한 줄>
+- forbidden:
+  - 산출물 생성·수정
+  - 칭찬·완화·단정
+  - 생성 대화·reasoning·구현 의도 참조
+```
+
+동일 키만 담은 JSON도 허용한다(예: [`docs/qa/atdd-lite-consumption-record-example.md`](../qa/atdd-lite-consumption-record-example.md) §5).
+
+### 거부 (넣으면 절차 위반 — 검증기는 무시·MAJOR로 기록 가능)
+
+- 생성 대화 요약, 메인 reasoning, 「왜 이렇게 구현했는지」해설
+- 예상 합격 유도·판정 초안·“거의 완료” 서술
+- brief **1)~8)** 전문, PRD/디자인 장문 재첨부(경로로 `artifactPaths`/`rubricRef`에만)
+- 허용 표에 없는 임의 키(`context`, `notes`, `summary`, `implementationNotes` 등)
+
+### 검증기 출력 (메인이 디스크에 저장)
+
+| 항목 | 내용 |
 |------|------|
-| `artifactPaths` | 검증 대상 파일·모듈 경로 (예: `docs/requirements/business-plan.md`, 변경된 `src/...`) |
-| `acceptanceTestPaths` | (ATDD-lite) `e2e/...`, `tests/api/...` 등 acceptance test 경로 |
-| `acIds` | (ATDD-lite) PRD AC ID 목록 예: `["AC-01","AC-02"]` |
-| `rubricRef` | Gate 3, `docs/qa/atdd-lite.md`, `docs/qa/reviewer-gate-rubric.md`, 작업별 체크리스트 경로 또는 요약 |
-| `forbidden` | 금지 조건 (예: 칭찬·완화, 생성 맥락 참조, 산출물 수정) |
+| 산출 경로 | `docs/qa/verify-{날짜 또는 slug}.md` |
+| Gate 3 | 메인이 완료 선언 전 **BLOCKER 0** 확인·경로 인용 |
 
-**코드 예:** 변경 파일 목록 + Gate 3·상태 UI 루브릭  
-**문서 예:** `docs/requirements/business-plan.md` + 투자자 관점 체크리스트 + 항목별 0점 가능
+**코드 예:** `artifactPaths` = 변경 파일 + `rubricRef` = Gate 3·상태 UI  
+**문서 예:** `artifactPaths` = `docs/requirements/...` + `rubricRef` = 체크리스트(항목별 0점 가능)

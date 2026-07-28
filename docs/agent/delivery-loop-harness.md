@@ -18,13 +18,29 @@
 - `gate2ChecklistPath` (string): 참고용 경로(훅은 파일 내용을 파싱하지 않음).
 - `blockNonEvidenceCompletion` (bool): `true`이면 체크리스트 항목이 있어도 **증빙 키워드**가 페이로드에 최소 2종 있어야 통과로 본다.
 - `checklistItems` (array): `{ "id", "done", "evidencePath" }`. 항목이 하나라도 있으면 **모두 `done: true`** 여야 완료 선언이 통과한다. 항목이 **없으면** [`guard-completion-claims`](../../.cursor/hooks/guard-completion-claims.ps1)와 같이 페이로드에 증빙 키워드 **2종 이상**이 필요하다.
-- `iteration`, `maxIterations`, `lastCommand`, `lastExitCode`, `updatedAt`: 러너가 갱신한다.
+- `iteration`, `maxIterations`, `lastCommand`, `lastExitCode`, `updatedAt`: **테스트 러너**(`Invoke-DeliveryLoop.ps1`)가 갱신한다. 구현↔qa 왕복과 **다른 카운터**다.
+- `verifyRound` (int): 구현 → `qa-agent` 재검증 **왕복 횟수**. 메인이 라운드마다 +1 (러너·delivery-ralph 유무와 무관; ralph를 쓰면 JSON에도 반영).
+- `maxVerifyRounds` (int): 기본 **3**.
+- `verifyRoundExceededHuman` (bool): 상한 초과 후 사용자가 범위 축소·상한 상향·계속 중 하나를 **명시한** 뒤에만 `true`.
+
+**HUMAN 발동(에이전트 정책):** `verifyRound >= maxVerifyRounds` **이고** 직전 `docs/qa/verify-*.md`에 **BLOCKER > 0**이면 추가 수정·재검증 전에 멈춘다. Gate 3 완료는 별도로 **BLOCKER 0**이 필요하다.  
+**훅:** 완료 선언 신호 + `verifyRound >= maxVerifyRounds` + `verifyRoundExceededHuman=false`이면 **경고만**(BLOCKER 파일은 파싱하지 않음, 편집 차단 안 함).
+
+## verify round (구현↔qa) vs test iteration
+
+| 카운터 | 대상 | 기본 상한 | 초과 시 |
+|--------|------|-----------|---------|
+| `verifyRound` / `maxVerifyRounds` | 생성·검증 분리 왕복(수정 → `qa-agent`) | **3** | **에이전트:** 상한 + BLOCKER 잔존 → **HUMAN**. **훅:** 완료 신호 시 상한·!HUMAN이면 경고만 |
+| `iteration` / `maxIterations` | `Invoke-DeliveryLoop` 테스트 명령 반복 | 20 | 스크립트 exit 1 |
+
+에이전트 절차 요약: BLOCKER가 남아 재수정하면 `verifyRound += 1`(verify 산출에 라운드 표기 권장) → `verifyRound >= maxVerifyRounds` **이고** BLOCKER 잔존이면 **멈춤·HUMAN** → 사용자 지시 후 `verifyRoundExceededHuman=true` 또는 라운드/상한 리셋. delivery-ralph를 쓰면 같은 값을 JSON에 기록한다.
 
 ## 훅 동작 요약
 
 - Cursor [`hooks.json`](../../.cursor/hooks.json)에 등록되어 있으며, **타임아웃(20초) 안**에서만 동작한다. 긴 테스트는 훅이 아니라 `Invoke-DeliveryLoop.ps1`에서 실행한다.
 - **쿨다운 20초**로 동일 경고 스팸을 줄인다.
 - 경고 로그: `.cursor/state/delivery-loop-warnings.log`
+- 완료 선언 시 `verifyRound >= maxVerifyRounds` 이고 `verifyRoundExceededHuman`이 아니면 **HUMAN 확인 권고** 경고(차단 아님; BLOCKER는 훅이 검사하지 않음).
 
 ## 루프 스크립트 사용법
 

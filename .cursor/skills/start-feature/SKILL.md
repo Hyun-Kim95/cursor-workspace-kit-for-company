@@ -37,9 +37,9 @@ description: Gate 1 확인 후 구현·검증·문서화; 필요 시 parallel-de
 
 SSOT: [`verify-change`](../verify-change/SKILL.md) **독립 검증 계약**. 요약만:
 
-1. 산출물 경로 정리 → 메인 self-verify 금지 → `qa-agent` handoff([`agent-brief.md`](../../../docs/agent/agent-brief.md) 9절) → `verify-change`로 판정 인용.
+1. 산출물 경로 정리 → 메인 self-verify 금지 → `qa-agent`에 [`agent-brief.md`](../../../docs/agent/agent-brief.md) **9) 고정 블록** handoff → `docs/qa/verify-*.md` 저장(BLOCKER 0) → `verify-change`로 판정 인용 후 Gate 3.
 
-검증 산출 저장 권장: `docs/qa/verify-{날짜 또는 slug}.md`
+검증 산출 저장: `docs/qa/verify-{날짜 또는 slug}.md` (**Gate 3 필수**, 예외는 `AGENTS.md` **직접 처리 가능한 예외**)
 
 ## 출력/보고 형식
 - 사용자 입력은 문장형 지시를 기본으로 해석한다.

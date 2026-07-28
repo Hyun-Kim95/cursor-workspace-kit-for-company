@@ -64,6 +64,27 @@ npm test -- preferences                       # 1 passed
 
 ## 5) Gate 3 — Verifier Handoff (예시)
 
+[`agent-brief.md`](../agent/agent-brief.md) **9) 고정 블록**과 동일 키만 사용한다.
+
+```markdown
+## Verifier Handoff
+- artifactPaths:
+  - docs/requirements/notifications-settings.md
+  - src/routes/settings/notifications.tsx
+  - src/server/routes/preferences.ts
+- acceptanceTestPaths:
+  - e2e/settings-notifications.spec.ts
+  - tests/api/preferences.test.ts
+- acIds: [AC-01, AC-02, AC-03]
+- rubricRef: Gate 3, docs/qa/atdd-lite.md
+- forbidden:
+  - 산출물 생성·수정
+  - 칭찬·완화·단정
+  - 생성 대화·reasoning·구현 의도 참조
+```
+
+동일 키 JSON 예:
+
 ```json
 {
   "artifactPaths": [
@@ -77,7 +98,7 @@ npm test -- preferences                       # 1 passed
   ],
   "acIds": ["AC-01", "AC-02", "AC-03"],
   "rubricRef": "Gate 3, docs/qa/atdd-lite.md",
-  "forbidden": "생성 reasoning, 완화, 산출물 수정"
+  "forbidden": ["산출물 생성·수정", "칭찬·완화·단정", "생성 대화·reasoning·구현 의도 참조"]
 }
 ```
 

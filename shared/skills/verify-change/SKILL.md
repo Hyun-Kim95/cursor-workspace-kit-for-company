@@ -49,10 +49,13 @@ description: 구현 결과를 요구사항, 상태 처리, 회귀 위험 기준�
 
 ### 공통
 
-- 검증 입력: **`artifactPaths` + `rubric`/`rubricRef` + `forbidden`** 만. 생성 대화·메인 reasoning은 넘기지 않는다.
+- 검증 입력: [`agent-brief.md`](../../../docs/agent/agent-brief.md) **9) 고정 블록**만. 허용 키 = `artifactPaths` + `rubricRef`/`rubric` + `forbidden` (+ ATDD 시 `acceptanceTestPaths`·`acIds`). 생성 대화·메인 reasoning·임의 키 금지.
+- 메인은 Task 프롬프트에 **고정 블록을 복붙**한다. 서론·구현 변명을 붙이면 절차 위반(검증기는 무시·MAJOR 가능).
 - 메인은 `qa-agent` **판정만** 보고에 인용한다. 자체 재해석·완화 금지.
 - 체크리스트 작업: `checkedItems: N/M`, `uncheckedIds: [...]`를 필수 보고. 미완이 있으면 완료 선언 금지.
 - handoff에 `rubric`/`rubricRef`를 줄 때, 명시가 없으면 `qa-agent` **기본 완료 루브릭**(「여전히/아직/다시 확인」 항목)을 포함한다.
+- **완료 선언 증거(필수):** 생성·검증 분리가 적용되는 범위에서는 `qa-agent` 산출을 `docs/qa/verify-{날짜 또는 slug}.md`에 **저장**하고, 그 파일에서 **BLOCKER 0**을 확인한 뒤에만 완료·검증 완료·Gate 3 충족을 선언한다. 보고에 **verify 경로**와 BLOCKER 수를 인용한다. (`AGENTS.md` **직접 처리 가능한 예외**·단일 파일 소규모 수정은 생략 가능.)
+- **verify round 상한:** 구현↔`qa-agent` 왕복은 기본 `maxVerifyRounds: 3` ([`docs/agent/delivery-loop-harness.md`](../../../docs/agent/delivery-loop-harness.md)). BLOCKER가 남아 재수정할 때마다 `verifyRound`+1(ralph 사용 시 JSON 반영). **`verifyRound >= maxVerifyRounds` 이고 BLOCKER 잔존**이면 추가 라운드 전 **HUMAN**(범위 축소·상한 상향·중단). 테스트 러너 `maxIterations`와 혼동하지 않는다. 훅은 완료 신호 시 상한·!HUMAN이면 **경고만**.
 
 ### 코드 검증
 
@@ -61,9 +64,10 @@ description: 구현 결과를 요구사항, 상태 처리, 회귀 위험 기준�
 ### 문서·기획 검증
 
 - 관점·체크리스트·**원문 인용**으로 약점을 적는다. 항목별 **0점 가능** 루브릭(`docs/qa/reviewer-gate-rubric.md` 또는 작업별 체크리스트)을 사용한다.
-- 출력: `BLOCKER` / `MAJOR` / `MINOR` 또는 채점표. 산출 저장 권장: `docs/qa/verify-{날짜 또는 slug}.md`
+- 출력: `BLOCKER` / `MAJOR` / `MINOR` 또는 채점표. 산출 저장: `docs/qa/verify-{날짜 또는 slug}.md` (**필수**, 위 **완료 선언 증거**)
 
 ## 결과물
-- 검증 결과 요약
+- `docs/qa/verify-{날짜 또는 slug}.md` (BLOCKER/MAJOR/MINOR·근거)
+- 검증 결과 요약(메인은 위 파일 인용)
 - 발견된 이슈 목록
 - 수정 필요 항목

@@ -8,6 +8,9 @@
   "lastExitCode": null,
   "iteration": 0,
   "maxIterations": 20,
+  "verifyRound": 0,
+  "maxVerifyRounds": 3,
+  "verifyRoundExceededHuman": false,
   "checklistItems": [
     {
       "id": "example-item",

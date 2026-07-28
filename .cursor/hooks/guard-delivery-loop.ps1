@@ -179,6 +179,31 @@ try {
     }
 
     if ($checklistOk -and $evidenceOk) {
+        # Still warn when verify↔qa rounds hit the cap without HUMAN.
+        $verifyRoundWarn = $false
+        try {
+            $vr = 0
+            $maxVr = 3
+            $humanOk = $false
+            if ($null -ne $state.verifyRound) { $vr = [int]$state.verifyRound }
+            if ($null -ne $state.maxVerifyRounds) { $maxVr = [int]$state.maxVerifyRounds }
+            if ($null -ne $state.verifyRoundExceededHuman) { $humanOk = [bool]$state.verifyRoundExceededHuman }
+            if ($maxVr -lt 1) { $maxVr = 3 }
+            if ($vr -ge $maxVr -and -not $humanOk) {
+                $verifyRoundWarn = $true
+            }
+        }
+        catch {
+            $verifyRoundWarn = $false
+        }
+
+        if ($verifyRoundWarn) {
+            Write-Host "[delivery-loop-guard] verifyRound($vr) >= maxVerifyRounds($maxVr) 이고 verifyRoundExceededHuman=false 입니다."
+            Write-Host "[delivery-loop-guard] 에이전트 정책: BLOCKER 잔존 시 추가 라운드 전 HUMAN(범위 축소/상한 상향/중단). 훅은 경고만입니다."
+            Write-Host "[delivery-loop-guard] 현재는 경고 모드이며 편집을 차단하지 않습니다. 상세: docs/agent/delivery-loop-harness.md"
+            Write-DeliveryLoopLog -ProjectRoot $projectRoot -Message "verifyRound cap without HUMAN; phase=$phase verifyRound=$vr maxVerifyRounds=$maxVr"
+        }
+
         if (-not (Test-Path -LiteralPath $stateDir)) {
             New-Item -ItemType Directory -Path $stateDir -Force | Out-Null
         }
@@ -193,6 +218,23 @@ try {
     if (-not $evidenceOk) {
         Write-Host "[delivery-loop-guard] DoD 증빙 키워드(디자인 반영, 상태 UI, 시나리오, URL/캡처 등)를 보고에 포함해 주세요."
     }
+
+    try {
+        $vr = 0
+        $maxVr = 3
+        $humanOk = $false
+        if ($null -ne $state.verifyRound) { $vr = [int]$state.verifyRound }
+        if ($null -ne $state.maxVerifyRounds) { $maxVr = [int]$state.maxVerifyRounds }
+        if ($null -ne $state.verifyRoundExceededHuman) { $humanOk = [bool]$state.verifyRoundExceededHuman }
+        if ($maxVr -lt 1) { $maxVr = 3 }
+        if ($vr -ge $maxVr -and -not $humanOk) {
+            Write-Host "[delivery-loop-guard] verifyRound($vr) >= maxVerifyRounds($maxVr) — BLOCKER 잔존 시 HUMAN 후 verifyRoundExceededHuman=true (훅은 경고만)."
+        }
+    }
+    catch {
+        # ignore verifyRound parse errors
+    }
+
     Write-Host "[delivery-loop-guard] 현재는 경고 모드이며 편집을 차단하지 않습니다. 상세: docs/agent/delivery-loop-harness.md"
 
     Write-DeliveryLoopLog -ProjectRoot $projectRoot -Message "Completion signal without checklist/evidence; phase=$phase checklistOk=$checklistOk evidenceOk=$evidenceOk"

@@ -72,6 +72,7 @@
 - **횡단 자산**(공유 패키지·kit·내부 SDK 등)은 **생성**과 **소비** 완료를 분리한다. Gate 3·소비 증거: [`docs/qa/integration-consumption-gate.md`](docs/qa/integration-consumption-gate.md).
 - 본 파일에는 게이트 세부 불릿을 중복 정의하지 않는다.
 - 검증 구간에서 [`.cursor/state/quality-gate-last.json`](.cursor/state/quality-gate-last.json)이 있고 `ok`가 `false`이면 해당 변경에 대해 **완료·검증 완료 선언을 하지 않는다** ([`docs/agent/harness-layer1.md`](docs/agent/harness-layer1.md)).
+- 생성·검증 분리가 적용되는 Gate 3 범위에서는 `docs/qa/verify-*.md` 산출과 **BLOCKER 0** 없이 **완료·검증 완료를 선언하지 않는다** (SSOT: [`shared/skills/verify-change/SKILL.md`](shared/skills/verify-change/SKILL.md) **독립 검증 계약** · Gate 3: [`.cursor/rules/60-delivery-gates.mdc`](.cursor/rules/60-delivery-gates.mdc)). **직접 처리 가능한 예외**는 생략 가능.
 
 ## `/start-setting` (제품 레포 1회 온보딩)
 

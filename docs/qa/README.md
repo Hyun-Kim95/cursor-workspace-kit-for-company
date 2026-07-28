@@ -26,7 +26,7 @@ tags: [docs, vault-sync]
 - stage3-entry-checklist.md
 - atdd-lite-consumption-checklist.md
 - atdd-lite-consumption-record-example.md
-- verify-{날짜 또는 slug}.md (qa-agent 검증 산출)
+- verify-{날짜 또는 slug}.md (qa-agent 검증 산출; Gate 3 완료 선언 시 **필수**, BLOCKER 0)
 ## Vault
 
 - [[cursor-workspace-kit/docs/cursor-workspace-kit-docs-hub|Hub]]
