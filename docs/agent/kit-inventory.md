@@ -123,6 +123,7 @@ Kit SSOT는 Git에서 관리한다. **편집은 SSOT 경로만** 하고, 루트 
 | `verify-change` | 구현 검증·회귀 |
 | `document-change` | 변경 요약·문서 동기화 |
 | `bugfix-flow` | 버그 수정 흐름 |
+| `design-brief` | 목업 전 디자인 축·금지·시그니처 브리프 |
 | `release-check` | 배포 전 점검 |
 | `implementation-preflight` | (전역 import) 구현 전 점검 |
 | `pre-implementation-research` | (전역 import) 구현 전 조사 |

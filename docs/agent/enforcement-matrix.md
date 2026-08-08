@@ -135,6 +135,7 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 | 조건 | SSOT |
 |------|------|
 | PRD 승인 전 구현·목업(2A/2B) 금지 | [`70-client-lifecycle-default.mdc`](../../project-kit/.cursor/rules/70-client-lifecycle-default.mdc) |
+| **design-brief(단계 2-0) 완성 전 2A/2B 금지** | [`client-project-lifecycle`](../../project-kit/.cursor/skills/client-project-lifecycle/SKILL.md) 단계 2-0 · [`design-brief`](../../shared/skills/design-brief/SKILL.md) |
 | PRD·디자인 등 HUMAN 구간에서 멈춤 | `70` · [`client-project-lifecycle`](../../project-kit/.cursor/skills/client-project-lifecycle/SKILL.md) |
 | 디자인 승인 = 구현 착수 승인 | `70` |
 | 선택 후 stage3 → Gate 2 → ATDD RED → 제품 구현 | lifecycle 스킬 단계 3 |
