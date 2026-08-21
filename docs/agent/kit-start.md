@@ -77,7 +77,7 @@
 ## Submodule (권장)
 
 ```powershell
-git submodule add https://github.com/Hyun-Kim95/cursor-workspace-kit.git vendor/cursor-workspace-kit
+git submodule add https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git vendor/cursor-workspace-kit
 ```
 
 | 상황 | 명령 |

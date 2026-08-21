@@ -17,7 +17,7 @@ description: >-
 - 개발 전에 범위 정리가 필요한 큰 작업일 때
 
 ## 기본 전제
-- 범위·정책을 정리하기 **전에** `.cursor/rules/product-monetization-default.mdc`를 확인한다: 사업자 없음, 수익은 광고·후원만 기본(유료·사업자 기능은 사용자 명시 또는 미확정). `docs/agent/product-assumptions.md`.
+- 범위·정책을 정리하기 **전에** `.cursor/rules/product-monetization-default.mdc`를 확인한다: 사업자=회사, 광고·후원 비기본(대외 유료 vs 사내 전용·PG는 명시 또는 미확정). `docs/agent/product-assumptions.md`, `docs/agent/company-profile.md`.
 
 ## 모호할 때 grilling (절차 1 직전)
 

@@ -1,6 +1,6 @@
 # 제품 레포 온보딩 — kit submodule + `/start-setting` + `/start`
 
-제품 앱 레포에 [cursor-workspace-kit](https://github.com/Hyun-Kim95/cursor-workspace-kit)을 붙이고, 채팅으로 rules·스킬을 최신화하는 절차이다.
+제품 앱 레포에 [cursor-workspace-kit-for-company](https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company)(회사 킷)을 붙이고, 채팅으로 rules·스킬을 최신화하는 절차이다. 프로파일: [`company-profile.md`](company-profile.md).
 
 **명령 정리:** [`kit-start.md`](kit-start.md) · 스크립트 목록: [`kit-inventory.md`](kit-inventory.md)
 
@@ -12,7 +12,7 @@
 |------|--------|
 | **제품에 kit·훅이 전혀 없음** (처음) | 아래 **[처음부터 3단계](#처음부터-3단계-완전-빈-제품)** |
 | **훅은 있는데** submodule·설정만 다시 맞추기 | 제품 폴더를 Cursor로 연 뒤 채팅 **`/start-setting`** |
-| **이미 온보딩 끝남** (`dietManagement` 등) | 매일 채팅 **`/start <할 일>`** 만 |
+| **이미 온보딩 끝남** (사내 제품 1곳 이상) | 매일 채팅 **`/start <할 일>`** 만 |
 
 ---
 
@@ -31,19 +31,21 @@
 kit **템플릿 저장소**를 clone한다. 제품 레포 clone이 아니다.
 
 ```powershell
-git clone https://github.com/Hyun-Kim95/cursor-workspace-kit.git
-cd cursor-workspace-kit
+git clone https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git
+cd cursor-workspace-kit-for-company
 ```
 
-(이미 `D:\cursor\cursor-workspace-kit` 등이 있으면 이 단계는 생략.)
+(이미 `D:\cursor\cursor-workspace-kit-for-company` 등이 있으면 이 단계는 생략.)
 
 ### 2단계 — 제품에 자동 설정 (PowerShell 1회)
 
 **kit clone 폴더**에서 제품 경로를 넘긴다.
 
 ```powershell
-cd D:\path\to\cursor-workspace-kit
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetting.ps1 -WorkspaceRoot D:\path\to\my-product
+cd D:\path\to\cursor-workspace-kit-for-company
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetting.ps1 `
+  -WorkspaceRoot D:\path\to\my-product `
+  -KitRepoUrl https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git
 ```
 
 자동 처리:
@@ -134,7 +136,7 @@ kit [`AGENTS.md`](../../AGENTS.md)를 참고해 제품 루트에 두고, `/start
 제품 레포 루트에서:
 
 ```powershell
-git submodule add https://github.com/Hyun-Kim95/cursor-workspace-kit.git vendor/cursor-workspace-kit
+git submodule add https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git vendor/cursor-workspace-kit
 git commit -m "chore: add cursor-workspace-kit submodule"
 ```
 

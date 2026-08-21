@@ -55,7 +55,7 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 
 | 항목 | SSOT |
 |------|------|
-| 사업자 없음, 수익 광고·후원 수준 기본 | [`shared/rules/product-monetization-default.mdc`](../../shared/rules/product-monetization-default.mdc) · [`product-assumptions.md`](product-assumptions.md) |
+| 회사·법인 전제, 광고·후원 비기본 | [`shared/rules/product-monetization-default.mdc`](../../shared/rules/product-monetization-default.mdc) · [`product-assumptions.md`](product-assumptions.md) · [`company-profile.md`](company-profile.md) |
 | 유료·세무·PG 흐름 기본 설계에 넣지 않음 | 동일 |
 
 ### kit 운영·완료 선언
@@ -217,7 +217,7 @@ kit 규칙·스킬·훅이 **언제 무엇을 강제하는지**를 한곳에서 
 | 항목 | SSOT |
 |------|------|
 | 로컬 PostgreSQL 시작 | `working-principles.mdc` DB 운영 기본값 |
-| 검증 후 Railway 반영 | 동일 (brownfield 자동 강제 아님) |
+| 검증 후 회사 표준 원격 반영 | 동일 (brownfield 자동 강제 아님; 벤더는 company-profile 미확정) |
 
 ### Dev 서버 예외 유지
 

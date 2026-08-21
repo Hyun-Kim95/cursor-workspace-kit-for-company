@@ -1,14 +1,18 @@
-# cursor-workspace-kit
+# cursor-workspace-kit-for-company
 
-Cursor용 **에이전트·rules·skills·hooks** 템플릿 저장소입니다. 제품 앱 코드가 아니라, 다른 프로젝트에서 가져다 쓰는 **kit SSOT**입니다.
+Cursor용 **에이전트·rules·skills·hooks** **회사 전용** 템플릿 저장소입니다. 제품 앱 코드가 아니라, 사내 제품 레포에서 submodule로 쓰는 **kit SSOT**입니다.
+
+프로파일·체크리스트: [`docs/agent/company-profile.md`](docs/agent/company-profile.md) · [`docs/agent/company-kit-checklist.md`](docs/agent/company-kit-checklist.md)
+
+> **remote:** `https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git`
 
 ## kit 레포에서 작업 (템플릿 개발)
 
 이 저장소를 **워크스페이스로 열어** rules·skills를 편집할 때:
 
 ```powershell
-git clone https://github.com/Hyun-Kim95/cursor-workspace-kit.git
-cd cursor-workspace-kit
+git clone https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git
+cd cursor-workspace-kit-for-company
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\sync-kit.ps1
 ```
 
@@ -20,17 +24,19 @@ Cursor에서 **이 폴더**를 연다. `sessionStart` 훅이 있으면 세션 �
 
 ## 제품 레포에 kit 붙이기 (앱 프로젝트)
 
-`dietManagement` 같은 **제품 레포**에 연동할 때. Cursor 워크스페이스는 **제품 폴더**를 연다 (kit 폴더가 아님).
+사내 **제품 레포**에 연동할 때. Cursor 워크스페이스는 **제품 폴더**를 연다 (kit 폴더가 아님).
 
 **전체 절차(SSOT):** [`docs/agent/product-onboarding.md`](docs/agent/product-onboarding.md#처음부터-3단계-완전-빈-제품)
 
 ```powershell
-# 1) kit 템플릿 clone (PC당 1회, 위와 동일)
-git clone https://github.com/Hyun-Kim95/cursor-workspace-kit.git
-cd cursor-workspace-kit
+# 1) 회사 kit clone (PC당 1회)
+git clone https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git
+cd cursor-workspace-kit-for-company
 
 # 2) 제품 자동 설정 (1회) — sync-kit.ps1 이 아님
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetting.ps1 -WorkspaceRoot D:\path\to\my-product
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetting.ps1 `
+  -WorkspaceRoot D:\path\to\my-product `
+  -KitRepoUrl https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git
 ```
 
 ```text
@@ -43,7 +49,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetti
 | 구분 | kit 레포 | 제품 레포 |
 |------|----------|-----------|
 | 2단계 스크립트 | `sync-kit.ps1` | `Invoke-KitStartSetting.ps1` |
-| Cursor로 여는 폴더 | `cursor-workspace-kit` | `my-product` |
+| Cursor로 여는 폴더 | `cursor-workspace-kit-for-company` | `my-product` |
 | 매일 채팅 | `/start` (kit 레포 안) | `/start` (제품 레포 안) |
 
 ---
@@ -53,7 +59,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetti
 | 경로 | 내용 |
 |------|------|
 | `shared/rules/`, `shared/skills/`, `shared/agents/` | 공통 rules·skills·agents |
-| `project-kit/` | 고객 게이트 rules(60·64·70), `client-project-lifecycle` 스킬 |
+| `project-kit/` | 게이트 rules(60·65·70 opt-in), `client-project-lifecycle` 스킬 |
 | `AGENTS.md` | 오케스트레이션 |
 | `.cursor/rules|skills|agents/` | **sync 산출물** — 직접 편집하지 말고 SSOT 수정 후 sync |
 

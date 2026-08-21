@@ -10,11 +10,13 @@
 
 ```powershell
 # 1) kit 템플릿 clone (PC당 1회)
-git clone https://github.com/Hyun-Kim95/cursor-workspace-kit.git
-cd cursor-workspace-kit
+git clone https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git
+cd cursor-workspace-kit-for-company
 
 # 2) 제품 자동 설정 (1회)
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetting.ps1 -WorkspaceRoot D:\path\to\my-product
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetting.ps1 `
+  -WorkspaceRoot D:\path\to\my-product `
+  -KitRepoUrl https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git
 ```
 
 그다음 Cursor에서 **제품 폴더**를 연고 채팅: `/start-setting` → 이후 `/start <할 일>`.

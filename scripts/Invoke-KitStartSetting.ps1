@@ -8,7 +8,7 @@ param(
     [Parameter(Mandatory = $false)]
     [string]$KitPath = "vendor/cursor-workspace-kit",
     [Parameter(Mandatory = $false)]
-    [string]$KitRepoUrl = "https://github.com/Hyun-Kim95/cursor-workspace-kit.git",
+    [string]$KitRepoUrl = "https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git",
     [Parameter(Mandatory = $false)]
     [string]$Channel = "A",
     [Parameter(Mandatory = $false)]

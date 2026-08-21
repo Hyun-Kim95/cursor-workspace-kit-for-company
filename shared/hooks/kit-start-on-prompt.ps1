@@ -209,7 +209,7 @@ try {
                         & git submodule update --init vendor/cursor-workspace-kit 2>&1 | Out-Null
                     }
                     if (-not (Test-Path -LiteralPath "vendor\cursor-workspace-kit")) {
-                        & git submodule add https://github.com/Hyun-Kim95/cursor-workspace-kit.git vendor/cursor-workspace-kit 2>&1 | Out-Null
+                        & git submodule add https://github.com/Hyun-Kim95/cursor-workspace-kit-for-company.git vendor/cursor-workspace-kit 2>&1 | Out-Null
                     }
                 }
             }

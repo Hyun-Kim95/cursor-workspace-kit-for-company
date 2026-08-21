@@ -17,7 +17,8 @@ description: 고객사 요구 붙여넣기부터 PRD 승인, 이중 목업, 디�
 ## 전제
 - `.cursor/agents/`, `.cursor/skills/`, `.cursor/rules/`, `AGENTS.md` 등 템플릿이 이미 워크스페이스에 있다.
 - 고객 요구사항 원문이 채팅 또는 `docs/requirements/` 등에 붙어 있다.
-- **수익·사업자:** `.cursor/rules/product-monetization-default.mdc` — 사업자 없음, 수익은 광고·후원만 기본. PRD·계획 초안부터 반영(`docs/agent/product-assumptions.md`). 유료·사업자는 사용자가 명시할 때만.
+- **수익·사업자:** `.cursor/rules/product-monetization-default.mdc` — 회사(법인) 전제, 광고·후원 비기본. PRD·계획 초안부터 반영(`docs/agent/product-assumptions.md`). 대외 유료 vs 사내 전용·PG 세부는 명시 또는 미확정.
+- **회사 킷:** 본 스킬은 **opt-in**이다. 사내 일상 작업에는 자동 적용하지 않는다(`70-client-lifecycle-default`, `docs/agent/company-profile.md`).
 
 ## 사람 승인(HUMAN) 규칙
 아래 단계에서 **HUMAN**이 표시되면, 에이전트는 **다음 단계로 넘어가지 않고** 사용자의 명시적 응답(승인 / 수정 지시 / 선택)을 기다린다.  
@@ -38,7 +39,7 @@ description: 고객사 요구 붙여넣기부터 PRD 승인, 이중 목업, 디�
 
 ## 단계 1 — PRD 초안
 1. `prd-agent`로 PRD 초안을 작성한다. 저장 위치는 `docs/requirements/` 등 팀 규칙에 따른다.
-2. Gate 1 항목(목표, 흐름, 범위, 정책·예외, 미확정)을 PRD에 반영한다. **「전제·가정」**에 수익·사업자 기본값(사업자 없음, 광고·후원)을 명시한다.
+2. Gate 1 항목(목표, 흐름, 범위, 정책·예외, 미확정)을 PRD에 반영한다. **「전제·가정」**에 수익·사업자 기본값(회사·법인, 광고·후원 비기본)을 명시한다.
 3. **모바일 앱**이 범위에 포함되면 `docs/mobile/app-update/policy-and-contract.md` PRD 절을 반영하고, Gate 1 화면 스펙에 `ux-states.md`(권장·강제)를 포함한다.
 4. PRD **측정·분석=예**이면 `docs/product-analytics/policy-and-contract.md` PRD 「측정·분석」절을 반영한다.
 
