@@ -26,11 +26,10 @@ tags: [docs, atdd, qa, consumption]
 - [ ] **첫 소비자 1곳:** `` (앱·화면·서비스)
 - [ ] **소비 경로(예정):** `` (라우트·API·모듈)
 
-## 2) Gate 2 — 계약·디자인·stage3
+## 2) Gate 2 — 계약·ATDD RED
 
-- [ ] [`stage3-entry-checklist.md`](stage3-entry-checklist.md) 완료(고객 E2E) 또는 Gate 2 동등 체크
-- [ ] API 계약·상태 UI(기본/로딩/빈/오류/권한) 확정
-- [ ] §3d ATDD-lite: PRD AC 목록 경로와 일치
+- [ ] API 계약 확정(해당 시)
+- [ ] §3d ATDD-lite: PRD AC 목록과 RED 테스트 매핑
 
 ## 3) RED — acceptance test (구현 전)
 

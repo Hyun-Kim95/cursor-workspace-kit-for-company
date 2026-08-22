@@ -47,7 +47,7 @@ PowerShell 5.1에서 `git` 출력을 문자열로 받을 때는 CP949 디코딩�
 
 ## 관련
 
-- [`product-assumptions.md`](product-assumptions.md) — 사업자·수익 기본 전제
+- [`company-profile.md`](company-profile.md) — 회사 킷 프로파일
 - [`kit-inventory.md`](kit-inventory.md)
 - [`product-onboarding.md`](product-onboarding.md)
 - [`rules-deploy.md`](rules-deploy.md)

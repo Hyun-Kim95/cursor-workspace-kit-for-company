@@ -99,7 +99,6 @@ function Invoke-SyncKitProductHooks {
 # Channel A: project-kit rules only + these shared globals (planning/ops defaults).
 $script:SharedGlobalRuleNames = @(
     "encoding-utf8-global.mdc"
-    "product-monetization-default.mdc"
 )
 
 function Copy-SharedGlobalRules {
@@ -142,10 +141,24 @@ function Get-KitSsotProjectRuleNames {
 # Channel A does not wipe .cursor/skills (product-local skills may exist).
 # Prune only kit-managed removals: previous sync list + known retirements.
 $script:RetiredKitSkillNames = @(
-    "context-organization"
+    "context-organization",
+    "design-brief",
+    "client-project-lifecycle"
 )
 $script:RetiredProjectKitRuleNames = @(
-    "64-context-organization.mdc"
+    "64-context-organization.mdc",
+    "70-client-lifecycle-default.mdc",
+    "65-design-gate.mdc",
+    "product-monetization-default.mdc",
+    "product-ui-core-global.mdc",
+    "20-web-vs-app.mdc",
+    "30-table-pagination.mdc",
+    "40-dark-mode.mdc",
+    "50-index-css-contract.mdc",
+    "21-app-version-update.mdc",
+    "22-product-analytics.mdc",
+    "23-performance-gate.mdc",
+    "24-security-gate.mdc"
 )
 
 function Remove-KitSkillOrphans {

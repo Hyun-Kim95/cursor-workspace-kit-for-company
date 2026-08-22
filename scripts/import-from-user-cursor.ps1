@@ -1,6 +1,6 @@
 ﻿# Import User-level Cursor skills and agents into kit SSOT (shared/).
 # Use when pulling latest from ~/.cursor into Git SSOT — not for day-to-day edits.
-# Excludes: skills-cursor, client-project-lifecycle (project-kit SSOT).
+# Excludes: skills-cursor, retired kit skills (design-brief, client-project-lifecycle).
 
 param(
     [switch]$Force
@@ -14,7 +14,7 @@ $AgentsSrc = Join-Path $UserCursor "agents"
 $SkillsDest = Join-Path $Root "shared\skills"
 $AgentsDest = Join-Path $Root "shared\agents"
 
-$ExcludeSkills = @("client-project-lifecycle")
+$ExcludeSkills = @("client-project-lifecycle", "design-brief")
 
 if (-not $Force) {
     Write-Host "import-from-user-cursor: overwrites shared/skills (except excluded) and shared/agents."

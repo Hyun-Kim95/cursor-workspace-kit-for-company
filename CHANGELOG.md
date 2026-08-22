@@ -4,7 +4,7 @@
 
 ### Changed
 
-- **회사 킷 프로파일** — 형태 A·사내 제품만: `70` opt-in, monetization(회사·법인), DB Railway 고정 제거, remote `Hyun-Kim95/cursor-workspace-kit-for-company`. 문서: `docs/agent/company-profile.md`, `company-kit-checklist.md`
+- **회사 킷 슬림화** — 수익/UX/디자인/optional 21~24·lifecycle 제거, Gate·ATDD·harness·kit 운영만 유지. `design-system-agent` 삭제, FE 일반 구현 역할로 축소
 - **하네스 MAJOR 패치** — `working-principles`에 **라이트/풀** 절 실체화·Task 예외 (a)(b) 명시; `frontend-agent` UI 규칙 「있으면 읽고 적용 / 없으면 제안만」으로 모순 해소; `rule-candidates-promotion-preview`에 「다시 확인」→qa 루브릭 이전 **히스토리** 표시
 - **하네스 스타일 맞춤 (Opus 5 점검 반영)** — `working-principles`에 **분담 임계치·Task 상한(≤2)** 실체화; `20`/`30`/`40`/`50`을 always→globs(UI 시); `30`은 기존·PRD 우선+15건 권장; 생성·검증 SSOT를 `verify-change`로 단일화; 「다시 확인」 체크를 `qa-agent` 기본 루브릭으로 이전; 보고 간결 한 줄 보강
 - **security strict-axis** — B2에 RBAC·테넌트·최소권한 명시; C6 에러 노출 추가; `security-axis.template` 동기화; `docs/security/README.md`에 배포 전 15항목 **참조 매핑**(SSOT는 A~F)

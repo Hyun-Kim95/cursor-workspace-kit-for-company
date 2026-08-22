@@ -1,85 +1,36 @@
 # Rules 배포 가이드
 
-Rules **편집 SSOT**는 Git 저장소의 `shared/rules/`, `shared/optional/`, `project-kit/.cursor/rules/`이다.  
-인벤토리: [`kit-inventory.md`](kit-inventory.md)
+Rules **편집 SSOT:** `shared/rules/`, `shared/optional/`, `project-kit/.cursor/rules/`  
+회사 킷(슬림): [`company-profile.md`](company-profile.md) · 인벤토리: [`kit-inventory.md`](kit-inventory.md)
 
-## 이 kit 레포(`cursor-workspace-kit`)에서 작업할 때
+## kit 레포에서 작업
 
-**채널 B (권장):** Cursor **User Rules에는 중복을 두지 않고**, 워크스페이스 `.cursor/rules/`만 사용한다.
-
-1. SSOT 파일을 수정한다.
-2. 저장소 루트에서 sync 실행:
+**채널 B (권장):** User Rules 중복 없이 워크스페이스 `.cursor/rules/`만 사용.
 
 ```powershell
-powershell -NoProfile -File scripts/sync-kit.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\sync-kit.ps1
 ```
 
-(rules만: `scripts/sync-rules.ps1`)
+**주의:** `.cursor/rules/`는 sync 산출물 — SSOT만 편집.
 
-3. Cursor를 다시 로드하거나 워크스페이스를 재연다.
+## 채널 A — User Rules + 제품 `.cursor/rules`
 
-**주의:** [`.cursor/rules/`](../../.cursor/rules/)는 sync **산출물**이다. 직접 편집하지 않는다.
+| 위치 | 내용 |
+|------|------|
+| User Rules | `shared/rules/*.mdc` (회사 킷: 4개 운영 규칙) |
+| 제품 `.cursor/rules/` | `60-delivery-gates` + **`encoding-utf8-global`** (`sync-kit-product.ps1` whitelist) |
 
-## 마이그레이션: 기존 Cursor User Rules 정리
+`shared/optional/locale-ko.mdc`는 팀 정책에 따라 추가.
 
-이전에 User Rules UI에 긴 블록을 붙여 두었다면, sync 후 **중복 적용**을 막기 위해:
+## 제품 레포 온보딩
 
-1. `scripts/sync-kit.ps1`(또는 `sync-rules.ps1`) 실행으로 `.cursor/rules`가 최신인지 확인한다.
-2. Cursor **Settings → Rules → User Rules**에서 아래와 **동일한 내용**을 제거한다 (채널 B).
+[`product-onboarding.md`](product-onboarding.md) — submodule + `/start-setting` + `/start`
 
-| 제거할 블록 | kit SSOT (이미 `.cursor/rules`에 있음) |
-|-------------|----------------------------------------|
-| `product-ui-core-global` 전체 | `shared/rules/product-ui-core-global.mdc` |
-| `emergent-rule-capture-global` 전체 | `shared/rules/emergent-rule-capture-global.mdc` |
-| 기본 작업 원칙 / working-principles 전체 | `shared/rules/working-principles.mdc` |
-| `Always respond in Korean` (선택) | `shared/optional/locale-ko.mdc` |
+## 인코딩
 
-**남길 수 있는 것(예시):** git 커밋 프로토콜, PR 생성 절차, 프론트 디자인 하드룰처럼 **kit에 없는** User-only 지시.
+- `encoding-utf8-global.mdc` · [`encoding.md`](encoding.md)
+- 제품 템플릿: `project-kit/.editorconfig`, `.gitattributes`
 
-3. 규칙이 한 번만 적용되는지 새 채팅으로 smoke test한다.
+## 버전
 
-## 채널 A — User Rules + 제품 `.cursor/rules` 분리
-
-모든 프로젝트에 공통 `shared/rules`를 **User Rules**에 두고, 제품 레포 `.cursor/rules`에는 **게이트 키트만** 둔다.
-
-| 위치 | 복사 대상 |
-|------|-----------|
-| Cursor User Rules | `shared/rules/*.mdc` 전체 (또는 마크다운으로 동일 내용) — UX·작업 원칙 등 |
-| 제품 `.cursor/rules/` (`/start` sync) | `project-kit` 게이트 rules(60, 70) **+** `encoding-utf8-global`, `product-monetization-default` (`sync-kit-product.ps1`의 global whitelist) |
-
-제품 레포만 열어도 global 두 규칙이 적용되도록, 채널 A에서도 위 whitelist는 **제품 `.cursor/rules/`에 복사**한다. 나머지 `shared/rules`는 User Rules에 두는 전제는 그대로다.
-
-`shared/optional/locale-ko.mdc`는 팀 정책에 따라 User Rules 또는 생략.
-
-`shared/optional/21-app-version-update.mdc`는 **모바일 앱을 배포하는 제품/팀**만 opt-in한다. 앱이 없는 레포에서는 sync 후 `.cursor/rules`에서 해당 파일을 제거하거나, 채널 A User Rules에 넣지 않는다. 상세 템플릿: [`docs/mobile/app-update/`](../../docs/mobile/app-update/README.md).
-
-`shared/optional/22-product-analytics.mdc`는 PRD **측정·분석=예**인 제품/팀만 opt-in한다. 측정=아니오·미명시 레포에서는 sync 후 `.cursor/rules`에서 제거하거나, 채널 A User Rules에 넣지 않는다. 상세: [`docs/product-analytics/`](../../docs/product-analytics/README.md).
-
-`shared/optional/23-performance-gate.mdc`는 PRD **성능 게이트=예**인 제품/팀만 opt-in한다. 성능 게이트=아니오·미명시 레포에서는 sync 후 `.cursor/rules`에서 제거하거나, 채널 A User Rules에 넣지 않는다. 상세: [`docs/performance/`](../../docs/performance/README.md).
-
-`shared/optional/24-security-gate.mdc`는 PRD **보안 게이트=예**인 제품/팀만 opt-in한다. 보안 게이트=아니오·미명시 레포에서는 sync 후 `.cursor/rules`에서 제거하거나, 채널 A User Rules에 넣지 않는다. 상세: [`docs/security/`](../../docs/security/README.md).
-
-## 신규 제품 레포에 kit 붙이기
-
-### 최소 세트 (고객 게이트만)
-
-1. 루트에 [`AGENTS.md`](../../AGENTS.md) 복사.
-2. `project-kit/.cursor/rules/` → 제품 `.cursor/rules/` (60, 70).
-3. 공통 UX/UI 규칙은 **채널 A**로 User Rules에 `shared/rules` 배포, 또는 **채널 B**로 제품 레포에 `shared/rules` + sync 스크립트 복사.
-
-### 전체 kit (이 레포와 동일)
-
-1. `shared/`, `project-kit/`, `scripts/sync-kit.ps1` 복사 또는 submodule.
-2. clone 후 `powershell -NoProfile -File scripts/sync-kit.ps1`.
-3. `AGENTS.md`를 루트에 둔다.
-
-## 인코딩·제품 전제 (제품·에이전트)
-
-- UTF-8: `encoding-utf8-global.mdc` · 템플릿 `project-kit/.editorconfig`, `.gitattributes` → [`encoding.md`](encoding.md)
-- 수익·사업자 기본: `product-monetization-default.mdc` → [`product-assumptions.md`](product-assumptions.md)
-- 채널 A sync: 위 두 global rule + project-kit rules (`sync-kit-product.ps1`)
-
-## 버전 고정
-
-kit repo 태그(예: `v0.1.0-rules`)를 기준으로 submodule 또는 release asset을 고정한다.  
-규칙 변경 시 CHANGELOG를 확인한 뒤 태그를 올린다.
+kit 태그·CHANGELOG 기준으로 submodule pin.

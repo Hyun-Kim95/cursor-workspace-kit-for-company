@@ -1,6 +1,6 @@
 # Layer 1 harness (optional)
 
-시스템 레벨 가드(shell·품질 검사) 설정 SSOT. **고객 E2E**([`70-client-lifecycle-default`](../../.cursor/rules/70-client-lifecycle-default.mdc), [`client-project-lifecycle`](../../.cursor/skills/client-project-lifecycle/SKILL.md))의 PRD·디자인 HUMAN·Gate를 **대체하지 않는다.** 단계 3 **제품 구현**·mock-only 금지 판정은 [`stage3-entry-checklist`](../qa/stage3-entry-checklist.md)·`65-design-gate`와 병행한다.
+시스템 레벨 가드(shell·품질 검사) 설정 SSOT. Gate·ATDD·PRD HUMAN과 **별개** — harness는 명령 차단·짧은 lint 등만 담당한다.
 
 ## 단계
 

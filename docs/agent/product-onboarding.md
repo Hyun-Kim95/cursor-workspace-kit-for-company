@@ -54,7 +54,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Invoke-KitStartSetti
 2. 제품 루트 `.cursor-kit.json` (없을 때만, 채널 A 기본)
 3. 제품 `.cursor/hooks/kit-start-on-prompt.ps1` + `hooks.json` (없을 때만)
 4. 첫 sync (`Invoke-KitStart`)
-5. (없을 때만) 루트 `.editorconfig`·`.gitattributes` · global rules(`encoding-utf8-global`, `product-monetization-default`) — [`encoding.md`](encoding.md), [`product-assumptions.md`](product-assumptions.md)
+5. (없을 때만) 루트 `.editorconfig`·`.gitattributes` · global rule `encoding-utf8-global` — [`encoding.md`](encoding.md)
 
 결과 파일: 제품의 [`.cursor/state/kit-start-setting-last.json`](../../.cursor/state/kit-start-setting-last.json)
 
@@ -171,7 +171,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File vendor\cursor-workspace-kit\
 | 항목 | 조치 |
 |------|------|
 | 전역 agents·skills | 비어 있어도 됨 — `/start`가 **shared/agents·shared/skills**를 제품 `.cursor/`에 반영 |
-| 제품 `.cursor/rules` | `/start` 시 **60·64·70** 갱신 |
+| 제품 `.cursor/rules` | `/start` 시 **60** + global(`encoding-utf8-global`) 갱신 |
 | 제품 `.cursor/skills` | `/start` 시 **공통 스킬 + lifecycle** 갱신 |
 | 제품 `.cursor/agents` | `/start` 시 **공통 에이전트 6개** 갱신 (kit `shared/agents`와 동일 파일명 덮어씀) |
 | `.cursor-kit.json` | `"channel": "A"` |
@@ -272,7 +272,7 @@ Get-Content .cursor\state\kit-start-last.json -Raw -ErrorAction SilentlyContinue
 |-----------|------|
 | `sharedSkills`가 스크립트에 **없음** | submodule이 **채널 A 전체 스킬 sync 이전** → `--remote`(또는 pull) **필요** |
 | 로컬 HEAD ≠ `origin/main` | 원격 최신 미반영 → `--remote` 또는 submodule 안 `git pull` **검토** |
-| `.cursor/skills` 폴더 **1개**뿐 (`client-project-lifecycle`만) | 위와 동일 가능성 큼 |
+| `.cursor/skills`가 kit SSOT보다 적음 | `/start`로 `shared/skills` 전체 sync 확인 |
 | `/start` 로그에 `skill-folders=1` 또는 `agents=0` (터미널·훅 stdout) | sync는 됐으나 **옛 스크립트** |
 | 위가 모두 정상인데 UI만 1개 | [문제 해결](#문제-해결) — Cursor reload, **파일 탐색기** `.cursor/skills` 기준 |
 
